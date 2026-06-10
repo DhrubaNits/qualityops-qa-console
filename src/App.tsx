@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import { LoginScreen } from './components/LoginScreen'
 import {
   runRequirementAgent,
+  runAdoWriteBackAgent,
   type RequirementAgentOutput,
 } from './services/orchestratorService'
 import type { UiPathSDKConfig } from '@uipath/uipath-typescript/core'
@@ -26,6 +27,19 @@ type QaAction =
 
 type RunStatus = 'Idle' | 'Ready' | 'Running' | 'Completed' | 'Error'
 
+type DecisionStatus = 'Idle' | 'Updating' | 'Updated' | 'Error'
+
+type ExecutionHistoryItem = {
+  requirementId: string
+  submittedBy: string
+  environment: string
+  readinessStatus: string
+  readinessScore: string | number
+  riskLevel: string
+  nextStep: string
+  timestamp: string
+}
+
 function AppContent() {
   const { isAuthenticated, isLoading, logout, uipathSDK } = useAuth()
 
@@ -38,6 +52,9 @@ function AppContent() {
     'Select an action and provide the required details to start.'
   )
   const [agentOutput, setAgentOutput] = useState<RequirementAgentOutput | null>(null)
+  const [executionHistory, setExecutionHistory] = useState<ExecutionHistoryItem[]>([])
+  const [qaLeadDecision, setQaLeadDecision] = useState('')
+  const [decisionStatus, setDecisionStatus] = useState<DecisionStatus>('Idle')
 
   const modules = useMemo(
     () => [
@@ -88,6 +105,8 @@ function AppContent() {
       setStatus('Error')
       setStatusMessage('Requirement ID and Submitted By are mandatory.')
       setAgentOutput(null)
+      setQaLeadDecision('')
+      setDecisionStatus('Idle')
       return
     }
 
@@ -95,12 +114,16 @@ function AppContent() {
       setStatus('Ready')
       setStatusMessage(`${actionType} module is prepared for future implementation.`)
       setAgentOutput(null)
+      setQaLeadDecision('')
+      setDecisionStatus('Idle')
       return
     }
 
     try {
       setStatus('Running')
       setAgentOutput(null)
+      setQaLeadDecision('')
+      setDecisionStatus('Idle')
       setStatusMessage('Starting QualityOps Requirement Coded Agent...')
 
       const result = await runRequirementAgent(
@@ -117,6 +140,21 @@ function AppContent() {
 
       setAgentOutput(result.output ?? null)
 
+      if (result.output) {
+        const historyItem: ExecutionHistoryItem = {
+          requirementId: requirementId.trim(),
+          submittedBy: submittedBy.trim(),
+          environment,
+          readinessStatus: result.output.requirementQualityAnalysis?.readinessStatus || '-',
+          readinessScore: result.output.requirementQualityAnalysis?.readinessScore ?? '-',
+          riskLevel: result.output.qaAnalysisSummary?.riskLevel || '-',
+          nextStep: result.output.qaAnalysisSummary?.nextStep || '-',
+          timestamp: new Date().toLocaleString(),
+        }
+
+        setExecutionHistory((previous) => [historyItem, ...previous].slice(0, 5))
+      }
+
       if (result.jobState === 'Successful') {
         setStatus('Completed')
         setStatusMessage(`${result.processingStatus} Job ID: ${result.jobId ?? 'N/A'}`)
@@ -131,8 +169,104 @@ function AppContent() {
     } catch (error) {
       setStatus('Error')
       setAgentOutput(null)
+      setQaLeadDecision('')
+      setDecisionStatus('Idle')
       setStatusMessage(error instanceof Error ? error.message : 'Failed to run coded agent job.')
     }
+  }
+
+  const handleApprove = async () => {
+    if (!requirementId.trim() || !submittedBy.trim()) {
+      setStatus('Error')
+      setStatusMessage('Requirement ID and Submitted By are mandatory before approval.')
+      return
+    }
+
+    try {
+      setDecisionStatus('Updating')
+      setStatus('Running')
+      setStatusMessage('Updating ADO with QA Lead approval...')
+
+      const result = await runAdoWriteBackAgent(
+        uipathSDK,
+        {
+          requirementId: requirementId.trim(),
+          submittedBy: submittedBy.trim(),
+          environment,
+          decisionType: 'Approved',
+          decisionComment: 'Approved by QA Lead. Requirement is ready for test generation.',
+        },
+        (message) => {
+          setStatusMessage(message)
+        }
+      )
+
+      setDecisionStatus('Updated')
+      setStatus('Completed')
+      setQaLeadDecision('Approved by QA Lead. Requirement is ready for test generation.')
+      setStatusMessage(
+        `${result.processingStatus} Job ID: ${result.jobId ?? 'N/A'}, State: ${
+          result.jobState ?? 'N/A'
+        }`
+      )
+    } catch (error) {
+      setDecisionStatus('Error')
+      setStatus('Error')
+      setQaLeadDecision('Approval update failed.')
+      setStatusMessage(error instanceof Error ? error.message : 'Failed to update ADO approval.')
+    }
+  }
+
+  const handleRequestClarification = async () => {
+    if (!requirementId.trim() || !submittedBy.trim()) {
+      setStatus('Error')
+      setStatusMessage('Requirement ID and Submitted By are mandatory before clarification request.')
+      return
+    }
+
+    try {
+      setDecisionStatus('Updating')
+      setStatus('Running')
+      setStatusMessage('Updating ADO with clarification request...')
+
+      const result = await runAdoWriteBackAgent(
+        uipathSDK,
+        {
+          requirementId: requirementId.trim(),
+          submittedBy: submittedBy.trim(),
+          environment,
+          decisionType: 'Clarification Requested',
+          decisionComment:
+            'Clarification requested by QA Lead. Requirement needs update before test generation.',
+        },
+        (message) => {
+          setStatusMessage(message)
+        }
+      )
+
+      setDecisionStatus('Updated')
+      setStatus('Ready')
+      setQaLeadDecision('Clarification requested by QA Lead. Requirement needs update.')
+      setStatusMessage(
+        `${result.processingStatus} Job ID: ${result.jobId ?? 'N/A'}, State: ${
+          result.jobState ?? 'N/A'
+        }`
+      )
+    } catch (error) {
+      setDecisionStatus('Error')
+      setStatus('Error')
+      setQaLeadDecision('Clarification update failed.')
+      setStatusMessage(
+        error instanceof Error ? error.message : 'Failed to update ADO clarification request.'
+      )
+    }
+  }
+
+  const handleGenerateTests = () => {
+    setActionType('Test Generation')
+    setQaLeadDecision('Moved to Test Generation module.')
+    setStatus('Ready')
+    setStatusMessage('Test Generation module is prepared for the next phase.')
   }
 
   const handleClear = () => {
@@ -143,6 +277,8 @@ function AppContent() {
     setStatus('Idle')
     setStatusMessage('Select an action and provide the required details to start.')
     setAgentOutput(null)
+    setQaLeadDecision('')
+    setDecisionStatus('Idle')
   }
 
   return (
@@ -273,6 +409,7 @@ function AppContent() {
               <button className="primary-button" onClick={handleRun} disabled={status === 'Running'}>
                 {status === 'Running' ? 'Running...' : 'Run Selected QA Action'}
               </button>
+
               <button className="secondary-button" onClick={handleClear}>
                 Clear
               </button>
@@ -290,93 +427,185 @@ function AppContent() {
               <p>{statusMessage}</p>
             </div>
 
-           {agentOutput && (
-  <div className="agent-output-card">
-    <div className="agent-output-header">
-      <div>
-        <span className="small-label">Live Agent Result</span>
-        <h4>Requirement Analysis Output</h4>
-      </div>
-      <span className="score-pill">
-        Score {agentOutput.requirementQualityAnalysis?.readinessScore ?? '-'}
-      </span>
-    </div>
+            {agentOutput && (
+              <div className="agent-output-card">
+                <div className="agent-output-header">
+                  <div>
+                    <span className="small-label">Live Agent Result</span>
+                    <h4>Requirement Analysis Output</h4>
+                  </div>
 
-    <div className="summary-grid">
-      <div className="summary-item">
-        <span>Readiness</span>
-        <strong>{agentOutput.requirementQualityAnalysis?.readinessStatus || '-'}</strong>
-      </div>
+                  <span className="score-pill">
+                    Score {agentOutput.requirementQualityAnalysis?.readinessScore ?? '-'}
+                  </span>
+                </div>
 
-      <div className="summary-item">
-        <span>Risk</span>
-        <strong>{agentOutput.qaAnalysisSummary?.riskLevel || '-'}</strong>
-      </div>
+                <div className="summary-grid">
+                  <div className="summary-item">
+                    <span>Readiness</span>
+                    <strong>{agentOutput.requirementQualityAnalysis?.readinessStatus || '-'}</strong>
+                  </div>
 
-      <div className="summary-item">
-        <span>Recommendation</span>
-        <strong>{agentOutput.requirementQualityAnalysis?.approvalRecommendation || '-'}</strong>
-      </div>
-    </div>
+                  <div className="summary-item">
+                    <span>Risk</span>
+                    <strong>{agentOutput.qaAnalysisSummary?.riskLevel || '-'}</strong>
+                  </div>
 
-    <div className="output-section">
-      <span>Requirement Title</span>
-      <p>{agentOutput.requirementTitle || '-'}</p>
-    </div>
+                  <div className="summary-item">
+                    <span>Recommendation</span>
+                    <strong>
+                      {agentOutput.requirementQualityAnalysis?.approvalRecommendation || '-'}
+                    </strong>
+                  </div>
+                </div>
 
-    <div className="output-section">
-      <span>Next Step</span>
-      <p>{agentOutput.qaAnalysisSummary?.nextStep || '-'}</p>
-    </div>
+                <div className="output-section">
+                  <span>Requirement Title</span>
+                  <p>{agentOutput.requirementTitle || '-'}</p>
+                </div>
 
-    <div className="output-section">
-      <span>Identified Gaps</span>
-      {agentOutput.requirementQualityAnalysis?.identifiedGaps?.length ? (
-        <ul className="gap-list">
-          {agentOutput.requirementQualityAnalysis.identifiedGaps.map((gap, index) => (
-            <li key={`${gap}-${index}`}>{gap}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No gaps identified.</p>
-      )}
-    </div>
+                <div className="output-section">
+                  <span>Next Step</span>
+                  <p>{agentOutput.qaAnalysisSummary?.nextStep || '-'}</p>
+                </div>
 
-    <details className="details-section">
-      <summary>View requirement details</summary>
+                <div className="output-section">
+                  <span>Identified Gaps</span>
+                  {agentOutput.requirementQualityAnalysis?.identifiedGaps?.length ? (
+                    <ul className="gap-list">
+                      {agentOutput.requirementQualityAnalysis.identifiedGaps.map((gap, index) => (
+                        <li key={`${gap}-${index}`}>{gap}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No gaps identified.</p>
+                  )}
+                </div>
 
-      <div className="output-section">
-        <span>Description</span>
-        <p>{agentOutput.requirementDescription || '-'}</p>
-      </div>
+                <details className="details-section">
+                  <summary>View requirement details</summary>
 
-      <div className="output-section">
-        <span>Acceptance Criteria</span>
-        <p>{agentOutput.acceptanceCriteria || '-'}</p>
-      </div>
-    </details>
-  </div>
-)}
+                  <div className="output-section">
+                    <span>Description</span>
+                    <p>{agentOutput.requirementDescription || '-'}</p>
+                  </div>
+
+                  <div className="output-section">
+                    <span>Acceptance Criteria</span>
+                    <p>{agentOutput.acceptanceCriteria || '-'}</p>
+                  </div>
+                </details>
+
+                <div className="qa-lead-actions">
+                  <button
+                    className="approve-button"
+                    onClick={handleApprove}
+                    disabled={decisionStatus === 'Updating'}
+                  >
+                    {decisionStatus === 'Updating' ? 'Updating...' : 'Approve'}
+                  </button>
+
+                  <button
+                    className="clarify-button"
+                    onClick={handleRequestClarification}
+                    disabled={decisionStatus === 'Updating'}
+                  >
+                    Request Clarification
+                  </button>
+
+                  <button
+                    className="generate-button"
+                    onClick={handleGenerateTests}
+                    disabled={decisionStatus === 'Updating'}
+                  >
+                    Generate Test Scenarios
+                  </button>
+                </div>
+
+                {qaLeadDecision && <div className="qa-lead-decision">{qaLeadDecision}</div>}
+              </div>
+            )}
 
             <div className="result-list">
               <div>
                 <span>Selected Action</span>
                 <strong>{actionType}</strong>
               </div>
+
               <div>
                 <span>Requirement ID</span>
                 <strong>{requirementId || '-'}</strong>
               </div>
+
               <div>
                 <span>Submitted By</span>
                 <strong>{submittedBy || '-'}</strong>
               </div>
+
               <div>
                 <span>Environment</span>
                 <strong>{environment}</strong>
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="history-panel">
+          <div className="panel-header">
+            <h3>Execution History</h3>
+            <p>Recent QualityOps agent runs from this session.</p>
+          </div>
+
+          {executionHistory.length === 0 ? (
+            <div className="empty-history">
+              No execution history yet. Run requirement analysis to populate this section.
+            </div>
+          ) : (
+            <div className="history-card-list">
+              {executionHistory.map((item, index) => (
+                <article
+                  className="history-card"
+                  key={`${item.requirementId}-${item.timestamp}-${index}`}
+                >
+                  <div className="history-card-header">
+                    <div>
+                      <span className="small-label">Requirement</span>
+                      <strong>{item.requirementId}</strong>
+                    </div>
+
+                    <span className="history-status">{item.readinessStatus}</span>
+                  </div>
+
+                  <div className="history-details">
+                    <div>
+                      <span>Score</span>
+                      <strong>{item.readinessScore}</strong>
+                    </div>
+
+                    <div>
+                      <span>Risk</span>
+                      <strong>{item.riskLevel}</strong>
+                    </div>
+
+                    <div>
+                      <span>Environment</span>
+                      <strong>{item.environment}</strong>
+                    </div>
+                  </div>
+
+                  <div className="history-next-step">
+                    <span>Next Step</span>
+                    <p>{item.nextStep}</p>
+                  </div>
+
+                  <div className="history-footer">
+                    <span>Submitted by {item.submittedBy}</span>
+                    <span>{item.timestamp}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="module-grid">
@@ -390,6 +619,7 @@ function AppContent() {
                 <h4>{module.title}</h4>
                 <p>{module.description}</p>
               </div>
+
               <span className={module.status === 'Active' ? 'tag active' : 'tag'}>
                 {module.status}
               </span>

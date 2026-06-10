@@ -40,9 +40,55 @@ export type RequirementAgentRunResult = {
   raw?: unknown
 }
 
-const ORCHESTRATOR_URL = import.meta.env.VITE_UIPATH_ORCHESTRATOR_URL
-const FOLDER_NAME = import.meta.env.VITE_UIPATH_FOLDER_NAME
-const REQUIREMENT_AGENT_NAME = import.meta.env.VITE_UIPATH_REQUIREMENT_AGENT_NAME
+export type AdoWriteBackInput = {
+  requirementId: string
+  decisionType: string
+  decisionComment: string
+  submittedBy: string
+  environment: string
+}
+
+export type AdoWriteBackOutput = {
+  writeBackStatus?: string
+  requirementId?: string
+  decisionType?: string
+  commentText?: string
+}
+
+export type AdoWriteBackRunResult = {
+  processingStatus: string
+  jobId?: number
+  jobKey?: string
+  jobState?: string
+  output?: AdoWriteBackOutput
+  raw?: unknown
+}
+
+const ORCHESTRATOR_URL =
+  import.meta.env.VITE_UIPATH_ORCHESTRATOR_URL || '/orchestrator-api'
+
+const REQUIREMENT_FOLDER_NAME =
+  import.meta.env.VITE_UIPATH_REQUIREMENT_FOLDER_NAME ||
+  import.meta.env.VITE_UIPATH_FOLDER_NAME
+
+const REQUIREMENT_AGENT_NAME =
+  import.meta.env.VITE_UIPATH_REQUIREMENT_PROCESS_NAME ||
+  import.meta.env.VITE_UIPATH_REQUIREMENT_AGENT_NAME
+
+const WRITEBACK_FOLDER_NAME =
+  import.meta.env.VITE_UIPATH_ADO_WRITEBACK_FOLDER_NAME
+
+const WRITEBACK_AGENT_NAME =
+  import.meta.env.VITE_UIPATH_ADO_WRITEBACK_PROCESS_NAME ||
+  import.meta.env.VITE_UIPATH_WRITEBACK_AGENT_NAME
+
+function requireConfigValue(value: string | undefined, name: string): string {
+  if (!value || !value.trim()) {
+    throw new Error(`Missing configuration value: ${name}. Please check your .env file.`)
+  }
+
+  return value.trim()
+}
 
 async function getAccessToken(uipathSDK: any): Promise<string> {
   if (typeof uipathSDK.getAccessToken === 'function') {
@@ -75,7 +121,7 @@ async function orchestratorFetch(
     ...(options.headers as Record<string, string>),
   }
 
-  if (folderId) {
+  if (folderId !== undefined && folderId !== null) {
     headers['X-UIPATH-OrganizationUnitId'] = String(folderId)
   }
 
@@ -88,13 +134,21 @@ async function orchestratorFetch(
   })
 
   const text = await response.text()
-  const data = text ? JSON.parse(text) : null
+
+  let data: any = null
+
+  try {
+    data = text ? JSON.parse(text) : null
+  } catch {
+    data = text
+  }
 
   if (!response.ok) {
     throw new Error(
       data?.message ||
         data?.Message ||
         data?.error?.message ||
+        data?.error?.Message ||
         `Orchestrator API failed with status ${response.status}`
     )
   }
@@ -106,7 +160,11 @@ function sleep(ms: number) {
   return new Promise((resolve) => window.setTimeout(resolve, ms))
 }
 
-function parseOutputArguments(jobData: any): RequirementAgentOutput | undefined {
+function encodeODataValue(value: string): string {
+  return value.replace(/'/g, "''")
+}
+
+function parseRequirementOutputArguments(jobData: any): RequirementAgentOutput | undefined {
   const outputArguments =
     jobData?.OutputArguments ||
     jobData?.outputArguments ||
@@ -130,8 +188,36 @@ function parseOutputArguments(jobData: any): RequirementAgentOutput | undefined 
   }
 }
 
-export async function getFolderId(uipathSDK: any): Promise<number> {
-  const encodedName = FOLDER_NAME.replace(/'/g, "''")
+function parseWriteBackOutputArguments(jobData: any): AdoWriteBackOutput | undefined {
+  const outputArguments =
+    jobData?.OutputArguments ||
+    jobData?.outputArguments ||
+    jobData?.Info?.OutputArguments ||
+    jobData?.Robot?.OutputArguments
+
+  if (!outputArguments) {
+    return undefined
+  }
+
+  try {
+    if (typeof outputArguments === 'string') {
+      return JSON.parse(outputArguments)
+    }
+
+    return outputArguments
+  } catch {
+    return {
+      writeBackStatus: String(outputArguments),
+    }
+  }
+}
+
+export async function getFolderIdByName(
+  uipathSDK: any,
+  folderName: string
+): Promise<number> {
+  const validFolderName = requireConfigValue(folderName, 'folderName')
+  const encodedName = encodeODataValue(validFolderName)
 
   const data = await orchestratorFetch(
     uipathSDK,
@@ -141,14 +227,19 @@ export async function getFolderId(uipathSDK: any): Promise<number> {
   const folder = data?.value?.[0]
 
   if (!folder?.Id) {
-    throw new Error(`Folder not found: ${FOLDER_NAME}`)
+    throw new Error(`Folder not found: ${validFolderName}`)
   }
 
   return folder.Id
 }
 
-export async function getReleaseKey(uipathSDK: any, folderId: number): Promise<string> {
-  const encodedName = REQUIREMENT_AGENT_NAME.replace(/'/g, "''")
+export async function getReleaseKeyByName(
+  uipathSDK: any,
+  folderId: number,
+  releaseName: string
+): Promise<string> {
+  const validReleaseName = requireConfigValue(releaseName, 'releaseName')
+  const encodedName = encodeODataValue(validReleaseName)
 
   const data = await orchestratorFetch(
     uipathSDK,
@@ -160,7 +251,7 @@ export async function getReleaseKey(uipathSDK: any, folderId: number): Promise<s
   const release = data?.value?.[0]
 
   if (!release?.Key) {
-    throw new Error(`Published agent/process not found: ${REQUIREMENT_AGENT_NAME}`)
+    throw new Error(`Published agent/process not found: ${validReleaseName}`)
   }
 
   return release.Key
@@ -175,13 +266,23 @@ export async function runRequirementAgent(
   input: RequirementAgentInput,
   onStatus?: (message: string) => void
 ): Promise<RequirementAgentRunResult> {
-  onStatus?.('Getting UiPath folder...')
-  const folderId = await getFolderId(uipathSDK)
+  const requirementFolderName = requireConfigValue(
+    REQUIREMENT_FOLDER_NAME,
+    'VITE_UIPATH_REQUIREMENT_FOLDER_NAME or VITE_UIPATH_FOLDER_NAME'
+  )
 
-  onStatus?.('Getting published coded agent...')
-  const releaseKey = await getReleaseKey(uipathSDK, folderId)
+  const requirementAgentName = requireConfigValue(
+    REQUIREMENT_AGENT_NAME,
+    'VITE_UIPATH_REQUIREMENT_PROCESS_NAME or VITE_UIPATH_REQUIREMENT_AGENT_NAME'
+  )
 
-  onStatus?.('Starting coded agent job...')
+  onStatus?.(`Getting UiPath folder: ${requirementFolderName}`)
+  const folderId = await getFolderIdByName(uipathSDK, requirementFolderName)
+
+  onStatus?.(`Getting published requirement coded agent: ${requirementAgentName}`)
+  const releaseKey = await getReleaseKeyByName(uipathSDK, folderId, requirementAgentName)
+
+  onStatus?.('Starting requirement analysis job...')
 
   const body = {
     startInfo: {
@@ -210,12 +311,12 @@ export async function runRequirementAgent(
 
   if (!job?.Id) {
     return {
-      processingStatus: 'Job started, but job ID was not returned.',
+      processingStatus: 'Requirement analysis job started, but job ID was not returned.',
       raw: startData,
     }
   }
 
-  onStatus?.(`Job started. Job ID: ${job.Id}`)
+  onStatus?.(`Requirement analysis job started. Job ID: ${job.Id}`)
 
   let latestJob = job
 
@@ -225,13 +326,13 @@ export async function runRequirementAgent(
     latestJob = await getJobStatus(uipathSDK, folderId, job.Id)
     const state = latestJob?.State || latestJob?.state || 'Unknown'
 
-    onStatus?.(`Waiting for coded agent result... Current state: ${state}`)
+    onStatus?.(`Waiting for requirement analysis result... Current state: ${state}`)
 
     if (state === 'Successful') {
-      const output = parseOutputArguments(latestJob)
+      const output = parseRequirementOutputArguments(latestJob)
 
       return {
-        processingStatus: output?.processingStatus || 'Coded agent completed successfully.',
+        processingStatus: output?.processingStatus || 'Requirement analysis completed successfully.',
         jobId: job.Id,
         jobKey: job.Key,
         jobState: state,
@@ -241,12 +342,112 @@ export async function runRequirementAgent(
     }
 
     if (['Faulted', 'Stopped', 'Suspended'].includes(state)) {
-      throw new Error(`Coded agent job ended with state: ${state}`)
+      throw new Error(`Requirement analysis job ended with state: ${state}`)
     }
   }
 
   return {
-    processingStatus: 'Coded agent job started but output was not available yet.',
+    processingStatus: 'Requirement analysis job started but output was not available yet.',
+    jobId: job.Id,
+    jobKey: job.Key,
+    jobState: latestJob?.State || 'Unknown',
+    raw: latestJob,
+  }
+}
+
+export async function runAdoWriteBackAgent(
+  uipathSDK: any,
+  input: AdoWriteBackInput,
+  onStatus?: (message: string) => void
+): Promise<AdoWriteBackRunResult> {
+  const writeBackFolderName = requireConfigValue(
+    WRITEBACK_FOLDER_NAME,
+    'VITE_UIPATH_ADO_WRITEBACK_FOLDER_NAME'
+  )
+
+  const writeBackAgentName = requireConfigValue(
+    WRITEBACK_AGENT_NAME,
+    'VITE_UIPATH_ADO_WRITEBACK_PROCESS_NAME or VITE_UIPATH_WRITEBACK_AGENT_NAME'
+  )
+
+  onStatus?.(`Getting UiPath folder: ${writeBackFolderName}`)
+  const folderId = await getFolderIdByName(uipathSDK, writeBackFolderName)
+
+  onStatus?.(`Getting published ADO WriteBack agent: ${writeBackAgentName}`)
+  const releaseKey = await getReleaseKeyByName(uipathSDK, folderId, writeBackAgentName)
+
+  onStatus?.('Starting ADO WriteBack job...')
+
+  const questionPayload = {
+    requirementId: input.requirementId,
+    decisionType: input.decisionType,
+    decisionComment: input.decisionComment,
+    submittedBy: input.submittedBy,
+    environment: input.environment,
+  }
+
+  const body = {
+    startInfo: {
+      ReleaseKey: releaseKey,
+      Strategy: 'ModernJobsCount',
+      JobsCount: 1,
+      InputArguments: JSON.stringify({
+        question: JSON.stringify(questionPayload),
+      }),
+    },
+  }
+
+  const startData = await orchestratorFetch(
+    uipathSDK,
+    `/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+    },
+    folderId
+  )
+
+  const job = startData?.value?.[0] || startData?.Value?.[0] || startData?.[0]
+
+  if (!job?.Id) {
+    return {
+      processingStatus: 'ADO WriteBack job started, but job ID was not returned.',
+      raw: startData,
+    }
+  }
+
+  onStatus?.(`ADO WriteBack job started. Job ID: ${job.Id}`)
+
+  let latestJob = job
+
+  for (let attempt = 1; attempt <= 30; attempt += 1) {
+    await sleep(2000)
+
+    latestJob = await getJobStatus(uipathSDK, folderId, job.Id)
+    const state = latestJob?.State || latestJob?.state || 'Unknown'
+
+    onStatus?.(`Waiting for ADO write-back result... Current state: ${state}`)
+
+    if (state === 'Successful') {
+      const output = parseWriteBackOutputArguments(latestJob)
+
+      return {
+        processingStatus: output?.writeBackStatus || 'ADO WriteBack completed successfully.',
+        jobId: job.Id,
+        jobKey: job.Key,
+        jobState: state,
+        output,
+        raw: latestJob,
+      }
+    }
+
+    if (['Faulted', 'Stopped', 'Suspended'].includes(state)) {
+      throw new Error(`ADO WriteBack job ended with state: ${state}`)
+    }
+  }
+
+  return {
+    processingStatus: 'ADO WriteBack job started but output was not available yet.',
     jobId: job.Id,
     jobKey: job.Key,
     jobState: latestJob?.State || 'Unknown',
