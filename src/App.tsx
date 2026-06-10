@@ -4,7 +4,9 @@ import { LoginScreen } from './components/LoginScreen'
 import {
   runRequirementAgent,
   runAdoWriteBackAgent,
+  runTestScenarioGenerationAgent,
   type RequirementAgentOutput,
+  type TestScenarioGenerationOutput,
 } from './services/orchestratorService'
 import type { UiPathSDKConfig } from '@uipath/uipath-typescript/core'
 import './App.css'
@@ -55,6 +57,8 @@ function AppContent() {
   const [executionHistory, setExecutionHistory] = useState<ExecutionHistoryItem[]>([])
   const [qaLeadDecision, setQaLeadDecision] = useState('')
   const [decisionStatus, setDecisionStatus] = useState<DecisionStatus>('Idle')
+  const [testScenarioOutput, setTestScenarioOutput] =
+    useState<TestScenarioGenerationOutput | null>(null)
 
   const modules = useMemo(
     () => [
@@ -105,6 +109,7 @@ function AppContent() {
       setStatus('Error')
       setStatusMessage('Requirement ID and Submitted By are mandatory.')
       setAgentOutput(null)
+      setTestScenarioOutput(null)
       setQaLeadDecision('')
       setDecisionStatus('Idle')
       return
@@ -114,6 +119,7 @@ function AppContent() {
       setStatus('Ready')
       setStatusMessage(`${actionType} module is prepared for future implementation.`)
       setAgentOutput(null)
+      setTestScenarioOutput(null)
       setQaLeadDecision('')
       setDecisionStatus('Idle')
       return
@@ -122,6 +128,7 @@ function AppContent() {
     try {
       setStatus('Running')
       setAgentOutput(null)
+      setTestScenarioOutput(null)
       setQaLeadDecision('')
       setDecisionStatus('Idle')
       setStatusMessage('Starting QualityOps Requirement Coded Agent...')
@@ -169,6 +176,7 @@ function AppContent() {
     } catch (error) {
       setStatus('Error')
       setAgentOutput(null)
+      setTestScenarioOutput(null)
       setQaLeadDecision('')
       setDecisionStatus('Idle')
       setStatusMessage(error instanceof Error ? error.message : 'Failed to run coded agent job.')
@@ -262,11 +270,60 @@ function AppContent() {
     }
   }
 
-  const handleGenerateTests = () => {
-    setActionType('Test Generation')
-    setQaLeadDecision('Moved to Test Generation module.')
-    setStatus('Ready')
-    setStatusMessage('Test Generation module is prepared for the next phase.')
+  const handleGenerateTests = async () => {
+    if (!agentOutput) {
+      setStatus('Error')
+      setStatusMessage('Run Requirement Analysis before generating test scenarios.')
+      return
+    }
+
+    try {
+      setActionType('Test Generation')
+      setStatus('Running')
+      setTestScenarioOutput(null)
+      setQaLeadDecision('Generating test scenarios from requirement analysis output.')
+      setStatusMessage('Starting Test Scenario Generation job...')
+
+      const result = await runTestScenarioGenerationAgent(
+        uipathSDK,
+        {
+          requirementId: requirementId.trim(),
+          submittedBy: submittedBy.trim(),
+          environment,
+          requirementTitle: agentOutput.requirementTitle,
+          requirementDescription: agentOutput.requirementDescription,
+          acceptanceCriteria: agentOutput.acceptanceCriteria,
+          riskLevel: agentOutput.qaAnalysisSummary?.riskLevel,
+          testingScope: agentOutput.qaAnalysisSummary?.testingScope,
+          suggestedTestFocus: agentOutput.qaAnalysisSummary?.suggestedTestFocus,
+        },
+        (message) => {
+          setStatusMessage(message)
+        }
+      )
+
+      setTestScenarioOutput(result.output ?? null)
+
+      if (result.jobState === 'Successful') {
+        setStatus('Completed')
+      } else {
+        setStatus('Ready')
+      }
+
+      setQaLeadDecision('Test scenarios generated from requirement analysis output.')
+      setStatusMessage(
+        `${result.processingStatus} Job ID: ${result.jobId ?? 'N/A'}, State: ${
+          result.jobState ?? 'N/A'
+        }`
+      )
+    } catch (error) {
+      setStatus('Error')
+      setTestScenarioOutput(null)
+      setQaLeadDecision('Test scenario generation failed.')
+      setStatusMessage(
+        error instanceof Error ? error.message : 'Failed to generate test scenarios.'
+      )
+    }
   }
 
   const handleClear = () => {
@@ -277,6 +334,7 @@ function AppContent() {
     setStatus('Idle')
     setStatusMessage('Select an action and provide the required details to start.')
     setAgentOutput(null)
+    setTestScenarioOutput(null)
     setQaLeadDecision('')
     setDecisionStatus('Idle')
   }
@@ -516,13 +574,103 @@ function AppContent() {
                   <button
                     className="generate-button"
                     onClick={handleGenerateTests}
-                    disabled={decisionStatus === 'Updating'}
+                    disabled={decisionStatus === 'Updating' || status === 'Running'}
                   >
-                    Generate Test Scenarios
+                    {status === 'Running' && actionType === 'Test Generation'
+                      ? 'Generating...'
+                      : 'Generate Test Scenarios'}
                   </button>
                 </div>
 
                 {qaLeadDecision && <div className="qa-lead-decision">{qaLeadDecision}</div>}
+
+                {testScenarioOutput && (
+                  <div className="test-scenario-output">
+                    <div className="test-scenario-panel-header">
+                      <div className="test-scenario-title-block">
+                        <span className="small-label">Generated QA Artifact</span>
+                        <h4>Generated Test Scenarios</h4>
+                        <p>
+                          Structured QA scenarios generated from requirement risk, scope, and test
+                          focus.
+                        </p>
+                      </div>
+
+                      <div className="test-scenario-meta">
+                        <span className="scenario-status-badge">
+                          {testScenarioOutput.generationStatus || 'Generated'}
+                        </span>
+                        <span className="scenario-count-badge">
+                          {testScenarioOutput.testScenarios?.length ?? 0} scenarios
+                        </span>
+                      </div>
+                    </div>
+
+                    {testScenarioOutput.testScenarios?.length ? (
+                      <div className="test-scenario-list">
+                        {testScenarioOutput.testScenarios.map((scenario, index) => (
+                          <article
+                            className="test-scenario-item"
+                            key={`${scenario.scenarioId || 'scenario'}-${index}`}
+                          >
+                            <div className="test-scenario-header">
+                              <div>
+                                <span className="scenario-id">
+                                  {scenario.scenarioId || `TS-${index + 1}`}
+                                </span>
+                                <strong>{scenario.scenarioTitle || 'Untitled scenario'}</strong>
+                              </div>
+
+                              <div className="scenario-badge-row">
+                                <span className="scenario-priority">
+                                  {scenario.priority || 'Priority N/A'}
+                                </span>
+                                <span className="scenario-type-badge">
+                                  {scenario.testType || 'Type N/A'}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="scenario-section">
+                              <span className="scenario-section-label">Preconditions</span>
+                              {scenario.preconditions?.length ? (
+                                <ul className="scenario-preconditions">
+                                  {scenario.preconditions.map((precondition, preconditionIndex) => (
+                                    <li key={`${precondition}-${preconditionIndex}`}>
+                                      {precondition}
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p>-</p>
+                              )}
+                            </div>
+
+                            <div className="scenario-section">
+                              <span className="scenario-section-label">Steps</span>
+                              {scenario.steps?.length ? (
+                                <ol className="scenario-steps">
+                                  {scenario.steps.map((step, stepIndex) => (
+                                    <li key={`${step}-${stepIndex}`}>{step}</li>
+                                  ))}
+                                </ol>
+                              ) : (
+                                <p>-</p>
+                              )}
+                            </div>
+
+                            <div className="scenario-section expected-result">
+                              <span className="scenario-section-label">Expected Result</span>
+                              <p>{scenario.expectedResult || '-'}</p>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="empty-scenarios">No test scenarios were returned.</p>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
