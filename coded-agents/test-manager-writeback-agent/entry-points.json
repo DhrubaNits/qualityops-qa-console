@@ -1,0 +1,713 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "01691bf3-2adf-4887-9cc1-8101a4abe549",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "default": "",
+                        "title": "Question",
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "Input"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "syncStatus": {
+                        "title": "Syncstatus",
+                        "type": "string"
+                    },
+                    "syncMode": {
+                        "default": "DryRun",
+                        "title": "Syncmode",
+                        "type": "string"
+                    },
+                    "requirementId": {
+                        "default": "",
+                        "title": "Requirementid",
+                        "type": "string"
+                    },
+                    "testManagerProjectId": {
+                        "default": "",
+                        "title": "Testmanagerprojectid",
+                        "type": "string"
+                    },
+                    "testManagerProjectKey": {
+                        "default": "",
+                        "title": "Testmanagerprojectkey",
+                        "type": "string"
+                    },
+                    "testManagerProjectName": {
+                        "default": "",
+                        "title": "Testmanagerprojectname",
+                        "type": "string"
+                    },
+                    "requirementPayload": {
+                        "additionalProperties": true,
+                        "type": "object"
+                    },
+                    "testCasePayloads": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Testcasepayloads",
+                        "type": "array"
+                    },
+                    "requirementLinks": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Requirementlinks",
+                        "type": "array"
+                    },
+                    "testSetPayload": {
+                        "additionalProperties": true,
+                        "type": "object"
+                    },
+                    "testSetMembership": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Testsetmembership",
+                        "type": "array"
+                    },
+                    "summary": {
+                        "properties": {
+                            "requirementsPrepared": {
+                                "default": 0,
+                                "title": "Requirementsprepared",
+                                "type": "integer"
+                            },
+                            "testCasesPrepared": {
+                                "default": 0,
+                                "title": "Testcasesprepared",
+                                "type": "integer"
+                            },
+                            "linksPrepared": {
+                                "default": 0,
+                                "title": "Linksprepared",
+                                "type": "integer"
+                            },
+                            "testSetsPrepared": {
+                                "default": 0,
+                                "title": "Testsetsprepared",
+                                "type": "integer"
+                            }
+                        },
+                        "title": "Summary",
+                        "type": "object"
+                    },
+                    "blockedReasons": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Blockedreasons",
+                        "type": "array"
+                    },
+                    "nextAction": {
+                        "title": "Nextaction",
+                        "type": "string"
+                    },
+                    "realSyncAttempted": {
+                        "default": false,
+                        "title": "Realsyncattempted",
+                        "type": "boolean"
+                    },
+                    "authTokenPresent": {
+                        "default": false,
+                        "title": "Authtokenpresent",
+                        "type": "boolean"
+                    },
+                    "authHeaderPrepared": {
+                        "default": false,
+                        "title": "Authheaderprepared",
+                        "type": "boolean"
+                    },
+                    "baseUrlUsed": {
+                        "default": "",
+                        "title": "Baseurlused",
+                        "type": "string"
+                    },
+                    "firstEndpointPath": {
+                        "default": "",
+                        "title": "Firstendpointpath",
+                        "type": "string"
+                    },
+                    "tokenLength": {
+                        "default": 0,
+                        "title": "Tokenlength",
+                        "type": "integer"
+                    },
+                    "tokenFingerprint": {
+                        "default": "",
+                        "title": "Tokenfingerprint",
+                        "type": "string"
+                    },
+                    "tokenStartsWithBearerPrefix": {
+                        "default": false,
+                        "title": "Tokenstartswithbearerprefix",
+                        "type": "boolean"
+                    },
+                    "requestUrlUsed": {
+                        "default": "",
+                        "title": "Requesturlused",
+                        "type": "string"
+                    },
+                    "requestHeadersPrepared": {
+                        "additionalProperties": true,
+                        "title": "Requestheadersprepared",
+                        "type": "object"
+                    },
+                    "responseContentType": {
+                        "default": "",
+                        "title": "Responsecontenttype",
+                        "type": "string"
+                    },
+                    "responseStatusCode": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "default": "",
+                        "title": "Responsestatuscode"
+                    },
+                    "tokenRefreshAttempted": {
+                        "default": false,
+                        "title": "Tokenrefreshattempted",
+                        "type": "boolean"
+                    },
+                    "tokenRefreshSucceeded": {
+                        "default": false,
+                        "title": "Tokenrefreshsucceeded",
+                        "type": "boolean"
+                    },
+                    "retryAttempted": {
+                        "default": false,
+                        "title": "Retryattempted",
+                        "type": "boolean"
+                    },
+                    "createdRequirement": {
+                        "default": "",
+                        "title": "Createdrequirement",
+                        "type": "string"
+                    },
+                    "createdTestCases": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Createdtestcases",
+                        "type": "array"
+                    },
+                    "createdTestSet": {
+                        "default": "",
+                        "title": "Createdtestset",
+                        "type": "string"
+                    },
+                    "createdTestCaseIds": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Createdtestcaseids",
+                        "type": "array"
+                    },
+                    "reusedTestCaseIds": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Reusedtestcaseids",
+                        "type": "array"
+                    },
+                    "allTestCaseIds": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Alltestcaseids",
+                        "type": "array"
+                    },
+                    "createdTestSetId": {
+                        "default": "",
+                        "title": "Createdtestsetid",
+                        "type": "string"
+                    },
+                    "testCaseReuseEnabled": {
+                        "default": true,
+                        "title": "Testcasereuseenabled",
+                        "type": "boolean"
+                    },
+                    "testCaseSyncDetails": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Testcasesyncdetails",
+                        "type": "array"
+                    },
+                    "reuseSearchAttempted": {
+                        "default": false,
+                        "title": "Reusesearchattempted",
+                        "type": "boolean"
+                    },
+                    "reuseSearchSucceeded": {
+                        "default": false,
+                        "title": "Reusesearchsucceeded",
+                        "type": "boolean"
+                    },
+                    "createdCount": {
+                        "default": 0,
+                        "title": "Createdcount",
+                        "type": "integer"
+                    },
+                    "reusedCount": {
+                        "default": 0,
+                        "title": "Reusedcount",
+                        "type": "integer"
+                    },
+                    "assignTestSetPayloadShape": {
+                        "default": "",
+                        "title": "Assigntestsetpayloadshape",
+                        "type": "string"
+                    },
+                    "failedEndpointPath": {
+                        "default": "",
+                        "title": "Failedendpointpath",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "syncStatus",
+                    "nextAction"
+                ],
+                "title": "Output"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:1511",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1311",
+                        "name": "build_sync_plan",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:300",
+                        "name": "normalize_sync_mode",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:320",
+                        "name": "select_test_set",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:231",
+                        "name": "_resolve_test_manager_config",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:211",
+                        "name": "_read_asset_config",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:344",
+                        "name": "_normalize_bearer_token",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:356",
+                        "name": "_normalize_base_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:352",
+                        "name": "_token_starts_with_bearer_prefix",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1404",
+                        "name": "failed_output",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:93",
+                        "name": "clean_duplicate_consecutive_words",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:97",
+                        "name": "_word_key",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:602",
+                        "name": "_project_lookup_path",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1468",
+                        "name": "configuration_required_output",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1024",
+                        "name": "_run_real_sync",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:553",
+                        "name": "_http_json",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:331",
+                        "name": "_extract_response_id",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:878",
+                        "name": "_assign_test_cases_to_test_set",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:613",
+                        "name": "lookup_test_manager_project_by_prefix",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:598",
+                        "name": "_join_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:834",
+                        "name": "_find_existing_test_case",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:362",
+                        "name": "_token_fingerprint",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:386",
+                        "name": "_safe_header_diagnostics",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:382",
+                        "name": "_headers_for_request",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:367",
+                        "name": "build_get_headers",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:376",
+                        "name": "build_post_headers",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1097",
+                        "name": "_format_api_error",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1076",
+                        "name": "_compact_json_error",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1045",
+                        "name": "_safe_error_text",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:300"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:320"
+                    },
+                    {
+                        "source": "main.py:231",
+                        "target": "main.py:211"
+                    },
+                    {
+                        "source": "main.py:231",
+                        "target": "main.py:344"
+                    },
+                    {
+                        "source": "main.py:231",
+                        "target": "main.py:356"
+                    },
+                    {
+                        "source": "main.py:231",
+                        "target": "main.py:352"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:231"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:1404"
+                    },
+                    {
+                        "source": "main.py:93",
+                        "target": "main.py:97"
+                    },
+                    {
+                        "source": "main.py:93",
+                        "target": "main.py:97"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:93"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:602"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:1468"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:553"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:331"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:553"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:553"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:331"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:878"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:613"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:331"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:598"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:834"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:553"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:331"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:598"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:598"
+                    },
+                    {
+                        "source": "main.py:1024",
+                        "target": "main.py:598"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:1024"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:1404"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:362"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:598"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:386"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:362"
+                    },
+                    {
+                        "source": "main.py:382",
+                        "target": "main.py:367"
+                    },
+                    {
+                        "source": "main.py:382",
+                        "target": "main.py:376"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:382"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:362"
+                    },
+                    {
+                        "source": "main.py:1097",
+                        "target": "main.py:1076"
+                    },
+                    {
+                        "source": "main.py:1097",
+                        "target": "main.py:1045"
+                    },
+                    {
+                        "source": "main.py:1311",
+                        "target": "main.py:1097"
+                    },
+                    {
+                        "source": "main.py:1511",
+                        "target": "main.py:1311"
+                    },
+                    {
+                        "source": "main.py:1511",
+                        "target": "main.py:1404"
+                    },
+                    {
+                        "source": "main.py:1511",
+                        "target": "main.py:1404"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Agent",
+  "Name": "qualityops-final-report-mail-agent",
+  "Description": "Send the generated QualityOps Final QA Report by email.",
+  "MainFile": null
+}

@@ -1,0 +1,3 @@
+{
+  "question": "{\"requirementId\":\"26\",\"submittedBy\":\"Dhruba\",\"environment\":\"SQA\",\"testScenarios\":[{\"scenarioId\":\"TS-001\",\"scenarioTitle\":\"Validate patient registration happy path\",\"priority\":\"High\",\"testType\":\"Functional\",\"preconditions\":[\"Requirement 26 is available for testing\"],\"steps\":[\"Open workflow\",\"Enter valid data\",\"Save\"],\"expectedResult\":\"Patient is created successfully\"}]}"
+}

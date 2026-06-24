@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-test-manager-writeback-agent",
+  "Description": "Dry-run planner for preparing QualityOps QA artifacts for UiPath Test Manager sync.",
+  "MainFile": null
+}

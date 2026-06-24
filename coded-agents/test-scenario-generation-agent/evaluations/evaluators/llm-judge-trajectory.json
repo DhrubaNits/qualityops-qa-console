@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "id": "LLMJudgeTrajectoryEvaluator",
+  "evaluatorTypeId": "uipath-llm-judge-trajectory-similarity",
+  "evaluatorConfig": {
+    "name": "LLMJudgeTrajectoryEvaluator",
+    "model": "gpt-4o-mini-2024-07-18",
+    "defaultEvaluationCriteria": {
+      "expectedAgentBehavior": "Agent should parse the question JSON and return practical QA test scenarios in the required JSON structure."
+    }
+  }
+}

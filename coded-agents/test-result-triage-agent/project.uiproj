@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-test-result-triage-agent",
+  "Description": "QualityOps Test Result Triage Agent",
+  "MainFile": null
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/uipath",
+  "runtimeOptions": {
+    "isConversational": false
+  },
+  "packOptions": {
+    "fileExtensionsIncluded": [],
+    "filesIncluded": [],
+    "filesExcluded": [".env"],
+    "directoriesExcluded": [".venv", "__pycache__", "__uipath", ".pytest_cache"],
+    "includeUvLock": true
+  },
+  "functions": {},
+  "agents": {}
+}

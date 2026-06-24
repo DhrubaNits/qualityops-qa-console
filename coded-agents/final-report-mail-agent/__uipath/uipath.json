@@ -1,0 +1,12 @@
+{
+  "runtime": {
+    "internalArguments": {
+      "resourceOverwrites": {
+        "connection.qualityopsagent-gmail": {
+          "connectionId": "d3f9d99c-c313-4a41-913b-2c2eb60aca22",
+          "folderKey": "2e167de9-8b29-4ccd-ab53-1519b66d7de1"
+        }
+      }
+    }
+  }
+}

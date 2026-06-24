@@ -1,0 +1,17 @@
+[project]
+name = "qualityops-testcase-review-memory-agent"
+version = "0.4.0"
+description = "QualityOps TestCase Review Memory Agent"
+requires-python = ">=3.11,<3.14"
+authors = [{ name = "QualityOps" }]
+dependencies = [
+    "uipath",
+    "uipath-langchain",
+    "langgraph",
+    "pydantic",
+]
+
+[dependency-groups]
+dev = [
+    "uipath-dev",
+]

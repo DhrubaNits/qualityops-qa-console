@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-automation-link-agent",
+  "Description": "Links generated UiPath Test Manager test cases to reusable simulator automation entry points.",
+  "MainFile": null
+}

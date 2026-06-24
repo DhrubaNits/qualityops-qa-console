@@ -1,0 +1,194 @@
+{
+  "version": "2.0",
+  "resources": [
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_BASE_URL",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_BASE_URL",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "stringAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_PROJECT_PREFIX",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_PROJECT_PREFIX",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "stringAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_BEARER_TOKEN",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_BEARER_TOKEN",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "secretAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_REFRESH_TOKEN",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_REFRESH_TOKEN",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "secretAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_CLIENT_ID",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_CLIENT_ID",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "stringAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_CLIENT_SECRET",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_CLIENT_SECRET",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "secretAsset"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "TEST_MANAGER_TOKEN_URL",
+      "value": {
+        "name": {
+          "defaultValue": "TEST_MANAGER_TOKEN_URL",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+          "isExpression": false,
+          "displayName": "main"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_async",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "stringAsset"
+      }
+    }
+  ]
+}

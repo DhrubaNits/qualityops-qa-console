@@ -1,0 +1,614 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "19a3ca02-9b6f-417d-8b92-c1cad8788d44",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "type": "string"
+                    },
+                    "variationId": {
+                        "type": "string"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "testExecutionId": {
+                        "type": "string"
+                    },
+                    "testCaseId": {
+                        "type": "string"
+                    },
+                    "testCaseName": {
+                        "type": "string"
+                    },
+                    "runtimeType": {
+                        "type": "string"
+                    },
+                    "robotName": {
+                        "type": "string"
+                    },
+                    "hostMachineName": {
+                        "type": "string"
+                    },
+                    "automationTestCaseName": {
+                        "type": "string"
+                    },
+                    "linkToTestCaseLog": {
+                        "type": "string"
+                    },
+                    "classification": {
+                        "type": "string"
+                    },
+                    "evidence": {
+                        "type": "string"
+                    },
+                    "recommendedAction": {
+                        "type": "string"
+                    },
+                    "adoParentId": {
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "Input"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "title": "Status",
+                        "type": "string"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "projectId": {
+                        "type": "string"
+                    },
+                    "result": {
+                        "additionalProperties": true,
+                        "title": "Result",
+                        "type": "object"
+                    },
+                    "blockedReasons": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Blockedreasons",
+                        "type": "array"
+                    },
+                    "nextAction": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "status"
+                ],
+                "title": "Output"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:1085",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:208",
+                        "name": "_merge_input",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:155",
+                        "name": "_failed_response",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:151",
+                        "name": "_json_response",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:983",
+                        "name": "list_executions",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:276",
+                        "name": "_with_diagnostics",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:218",
+                        "name": "_redact",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:249",
+                        "name": "_redact_secret",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:346",
+                        "name": "_require",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1070",
+                        "name": "analyze_execution",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:902",
+                        "name": "_execution_summary",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:867",
+                        "name": "_safe_int",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:891",
+                        "name": "_result_rows",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:962",
+                        "name": "_assertion_evidence",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:920",
+                        "name": "_data_or_items",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:335",
+                        "name": "_collect_failure_text",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:973",
+                        "name": "_format_evidence",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:881",
+                        "name": "_safe_parse_json_string",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:300",
+                        "name": "classify_failure",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:315",
+                        "name": "_recommended_action",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:895",
+                        "name": "_is_failed_result_row",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:938",
+                        "name": "_robot_log_message",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:946",
+                        "name": "_is_failed_or_warning_log",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:977",
+                        "name": "_test_case_log_link",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:280",
+                        "name": "_join_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:472",
+                        "name": "_base_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:1075",
+                        "name": "create_defect",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:840",
+                        "name": "_create_azure_devops_bug",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:451",
+                        "name": "_read_azure_devops_asset_config",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:632",
+                        "name": "_azure_devops_base_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:771",
+                        "name": "_build_azure_devops_bug_payload",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:775",
+                        "name": "_post_azure_devops_bug",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:618",
+                        "name": "_parse_response",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:622",
+                        "name": "_blocked_defect_response",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:637",
+                        "name": "_azure_devops_basic_auth_header",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:208",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:208",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:208",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:208",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:208"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:151"
+                    },
+                    {
+                        "source": "main.py:983",
+                        "target": "main.py:276"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:983"
+                    },
+                    {
+                        "source": "main.py:218",
+                        "target": "main.py:249"
+                    },
+                    {
+                        "source": "main.py:218",
+                        "target": "main.py:249"
+                    },
+                    {
+                        "source": "main.py:218",
+                        "target": "main.py:218"
+                    },
+                    {
+                        "source": "main.py:218",
+                        "target": "main.py:218"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:218"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:151"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:346"
+                    },
+                    {
+                        "source": "main.py:902",
+                        "target": "main.py:867"
+                    },
+                    {
+                        "source": "main.py:902",
+                        "target": "main.py:867"
+                    },
+                    {
+                        "source": "main.py:902",
+                        "target": "main.py:867"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:902"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:891"
+                    },
+                    {
+                        "source": "main.py:962",
+                        "target": "main.py:920"
+                    },
+                    {
+                        "source": "main.py:962",
+                        "target": "main.py:335"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:962"
+                    },
+                    {
+                        "source": "main.py:973",
+                        "target": "main.py:881"
+                    },
+                    {
+                        "source": "main.py:973",
+                        "target": "main.py:335"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:973"
+                    },
+                    {
+                        "source": "main.py:300",
+                        "target": "main.py:315"
+                    },
+                    {
+                        "source": "main.py:300",
+                        "target": "main.py:315"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:300"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:895"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:938"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:920"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:946"
+                    },
+                    {
+                        "source": "main.py:977",
+                        "target": "main.py:280"
+                    },
+                    {
+                        "source": "main.py:977",
+                        "target": "main.py:472"
+                    },
+                    {
+                        "source": "main.py:1070",
+                        "target": "main.py:977"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:1070"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:218"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:346"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:346"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:451"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:632"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:771"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:775"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:618"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:637"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:771"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:775"
+                    },
+                    {
+                        "source": "main.py:840",
+                        "target": "main.py:622"
+                    },
+                    {
+                        "source": "main.py:1075",
+                        "target": "main.py:840"
+                    },
+                    {
+                        "source": "main.py:1085",
+                        "target": "main.py:1075"
+                    }
+                ]
+            }
+        }
+    ]
+}

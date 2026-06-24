@@ -1,0 +1,14 @@
+[project]
+name = "qualityops-test-result-triage-agent"
+version = "0.1.10"
+description = "QualityOps Test Result Triage Agent"
+authors = [{ name = "QualityOps" }]
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "requests>=2.31.0",
+    "uipath",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

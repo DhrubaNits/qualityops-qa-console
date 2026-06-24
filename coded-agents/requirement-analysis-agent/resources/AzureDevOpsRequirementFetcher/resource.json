@@ -1,0 +1,101 @@
+{
+  "$resourceType": "tool",
+  "id": "f6e6a4da-b36d-43d3-b702-683449c6a29e",
+  "referenceKey": "c92876d0-e895-4e30-a907-ff1b68f13654",
+  "name": "AzureDevOpsRequirementFetcher",
+  "type": "process",
+  "description": "Fetches requirement/work item details from Azure DevOps using the provided requirement ID and submitted by value. Returns requirement title, description, acceptance criteria, state, area path, tags, and fetch status.",
+  "location": "external",
+  "isEnabled": true,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "submittedBy": {
+        "type": "string",
+        "description": "Name of the QA user or system submitting the requirement analysis request."
+      },
+      "requirementId": {
+        "type": "string",
+        "description": "Azure DevOps work item ID used to fetch the requirement details."
+      }
+    },
+    "required": []
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "fetchStatus": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "string"
+      },
+      "areaPath": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "acceptanceCriteria": {
+        "type": "string"
+      },
+      "requirementDescription": {
+        "type": "string"
+      },
+      "requirementTitle": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "settings": {},
+  "guardrail": {
+    "policies": [
+      {
+        "$guardrailType": "builtInValidator",
+        "id": "86f9626b-dc72-4e0b-a8cf-658a0988078a",
+        "name": "PII detection guardrail",
+        "description": "This validator is designed to detect personally identifiable information using Azure Cognitive Services",
+        "validatorType": "pii_detection",
+        "validatorParameters": [
+          {
+            "$parameterType": "enum-list",
+            "id": "entities",
+            "value": [
+              "Email",
+              "Address"
+            ]
+          },
+          {
+            "$parameterType": "map-enum",
+            "id": "entityThresholds",
+            "value": {
+              "Email": 0.5,
+              "Address": 0.5
+            }
+          }
+        ],
+        "action": {
+          "$actionType": "log",
+          "severityLevel": "Info"
+        },
+        "enabledForEvals": true,
+        "selector": {
+          "scopes": [
+            "Tool"
+          ],
+          "matchNames": [
+            "AzureDevOpsRequirementFetcher"
+          ]
+        }
+      }
+    ]
+  },
+  "argumentProperties": {},
+  "properties": {
+    "processName": "AzureDevOpsRequirementFetcher",
+    "folderPath": "solution_folder"
+  }
+}

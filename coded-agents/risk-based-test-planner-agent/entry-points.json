@@ -1,0 +1,324 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "29305c54-101e-4b71-a7f8-bb2c61eae136",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "default": "",
+                        "title": "Question",
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "Input"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "planningStatus": {
+                        "default": "Completed",
+                        "enum": [
+                            "Completed",
+                            "Failed"
+                        ],
+                        "title": "Planningstatus",
+                        "type": "string"
+                    },
+                    "requirementId": {
+                        "default": "",
+                        "title": "Requirementid",
+                        "type": "string"
+                    },
+                    "recommendedExecutionOrder": {
+                        "items": {
+                            "properties": {
+                                "rank": {
+                                    "default": 0,
+                                    "title": "Rank",
+                                    "type": "integer"
+                                },
+                                "scenarioId": {
+                                    "default": "",
+                                    "title": "Scenarioid",
+                                    "type": "string"
+                                },
+                                "scenarioTitle": {
+                                    "default": "",
+                                    "title": "Scenariotitle",
+                                    "type": "string"
+                                },
+                                "priority": {
+                                    "default": "",
+                                    "title": "Priority",
+                                    "type": "string"
+                                },
+                                "testType": {
+                                    "default": "",
+                                    "title": "Testtype",
+                                    "type": "string"
+                                },
+                                "executionType": {
+                                    "default": "",
+                                    "title": "Executiontype",
+                                    "type": "string"
+                                },
+                                "riskReason": {
+                                    "default": "",
+                                    "title": "Riskreason",
+                                    "type": "string"
+                                }
+                            },
+                            "title": "RecommendedScenario",
+                            "type": "object"
+                        },
+                        "title": "Recommendedexecutionorder",
+                        "type": "array"
+                    },
+                    "coverageSummary": {
+                        "properties": {
+                            "functional": {
+                                "default": 0,
+                                "title": "Functional",
+                                "type": "integer"
+                            },
+                            "negative": {
+                                "default": 0,
+                                "title": "Negative",
+                                "type": "integer"
+                            },
+                            "integration": {
+                                "default": 0,
+                                "title": "Integration",
+                                "type": "integer"
+                            },
+                            "regression": {
+                                "default": 0,
+                                "title": "Regression",
+                                "type": "integer"
+                            },
+                            "edgeCase": {
+                                "default": 0,
+                                "title": "Edgecase",
+                                "type": "integer"
+                            },
+                            "total": {
+                                "default": 0,
+                                "title": "Total",
+                                "type": "integer"
+                            }
+                        },
+                        "title": "CoverageSummary",
+                        "type": "object"
+                    },
+                    "releaseRecommendation": {
+                        "default": "",
+                        "title": "Releaserecommendation",
+                        "type": "string"
+                    },
+                    "failedScenarios": {
+                        "items": {
+                            "properties": {
+                                "scenarioId": {
+                                    "default": "",
+                                    "title": "Scenarioid",
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "default": "",
+                                    "title": "Error",
+                                    "type": "string"
+                                }
+                            },
+                            "title": "FailedScenario",
+                            "type": "object"
+                        },
+                        "title": "Failedscenarios",
+                        "type": "array"
+                    }
+                },
+                "required": [],
+                "title": "Output"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:123",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:155",
+                        "name": "validate_scenarios",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:198",
+                        "name": "normalize_scope",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:203",
+                        "name": "normalize_test_type",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:134",
+                        "name": "failed_output",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:220",
+                        "name": "coverage_summary",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:272",
+                        "name": "release_recommendation",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:166",
+                        "name": "scenario_sort_key",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:192",
+                        "name": "scenario_score",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:231",
+                        "name": "execution_type",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:249",
+                        "name": "risk_reason",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:253",
+                        "name": "readable_type",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:198",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:198"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:134"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:134"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:134"
+                    },
+                    {
+                        "source": "main.py:220",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:220"
+                    },
+                    {
+                        "source": "main.py:272",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:272"
+                    },
+                    {
+                        "source": "main.py:192",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:166",
+                        "target": "main.py:192"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:166"
+                    },
+                    {
+                        "source": "main.py:231",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:231"
+                    },
+                    {
+                        "source": "main.py:249",
+                        "target": "main.py:203"
+                    },
+                    {
+                        "source": "main.py:249",
+                        "target": "main.py:253"
+                    },
+                    {
+                        "source": "main.py:123",
+                        "target": "main.py:249"
+                    }
+                ]
+            }
+        }
+    ]
+}

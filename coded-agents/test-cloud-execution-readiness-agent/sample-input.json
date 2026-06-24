@@ -1,0 +1,3 @@
+{
+  "question": "{\"requirementId\":\"26\",\"submittedBy\":\"Dhruba\",\"environment\":\"SQA\",\"requirementTitle\":\"Validate End-to-End Patient Care Workflow\",\"riskLevel\":\"High\",\"qaReviewStatus\":\"Approved\",\"testScenarioCount\":8,\"adoTestCaseCreatedCount\":8,\"riskPlanningStatus\":\"Completed\",\"recommendedExecutionOrder\":[{\"rank\":1,\"scenarioId\":\"TS-001\",\"scenarioTitle\":\"Validate End-to-End Patient Care Workflow happy path\",\"priority\":\"High\",\"testType\":\"Functional\",\"executionType\":\"Manual\",\"riskReason\":\"Covers high-risk patient workflow.\"}],\"coverageSummary\":{\"functional\":4,\"negative\":1,\"integration\":1,\"regression\":1,\"edgeCase\":1,\"total\":8}}"
+}

@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-risk-based-test-planner-agent",
+  "Description": "UiPath coded agent for deterministic risk-based QA test execution planning.",
+  "MainFile": null
+}

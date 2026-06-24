@@ -1,0 +1,4 @@
+uipath-langchain[bedrock,vertex]<0.11.0,>=0.10.0
+
+[dev]
+uipath-dev>=0.0.74

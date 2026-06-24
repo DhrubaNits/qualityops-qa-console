@@ -1,0 +1,41 @@
+{
+  "$resourceType": "tool",
+  "id": "cf516738-70a1-44c3-bd73-e31fb7e5c81c",
+  "referenceKey": "a2be519e-7c01-4bd3-b273-ddde89975171",
+  "name": "AzureDevOpsWriteBackTool",
+  "type": "process",
+  "description": "Writes the QA analysis summary back to the same Azure DevOps work item as a comment.",
+  "location": "external",
+  "isEnabled": true,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "requirementId": {
+        "type": "string",
+        "description": "Azure DevOps work item ID where the QA analysis comment should be added."
+      },
+      "qaAnalysisComment": {
+        "type": "string",
+        "description": "Formatted QualityOps QA analysis summary to be written as a comment in Azure DevOps."
+      }
+    },
+    "required": []
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "updateStatus": {
+        "type": "string"
+      }
+    }
+  },
+  "settings": {},
+  "guardrail": {
+    "policies": []
+  },
+  "argumentProperties": {},
+  "properties": {
+    "processName": "AzureDevOpsWriteBackTool",
+    "folderPath": "solution_folder"
+  }
+}

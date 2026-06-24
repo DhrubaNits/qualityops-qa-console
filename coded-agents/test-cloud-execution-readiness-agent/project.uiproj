@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-test-cloud-execution-readiness-agent",
+  "Description": "Deterministic UiPath coded agent for QA execution readiness checks.",
+  "MainFile": null
+}

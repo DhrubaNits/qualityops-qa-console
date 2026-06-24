@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: qualityops-test-manager-writeback-agent
+Version: 0.1.7
+Summary: Dry-run planner for preparing QualityOps QA artifacts for UiPath Test Manager sync.
+Author: Dhruba
+Requires-Python: <3.13,>=3.12
+Requires-Dist: uipath>=2.10
+Requires-Dist: pydantic>=2.10
+Requires-Dist: requests<3.0,>=2.31

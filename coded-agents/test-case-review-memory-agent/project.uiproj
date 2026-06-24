@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Agent",
+  "Name": "qualityops-testcase-review-memory-agent",
+  "Description": "QualityOps TestCase Review Memory Agent",
+  "MainFile": null
+}

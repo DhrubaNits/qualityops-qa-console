@@ -1,0 +1,14 @@
+[project]
+name = "qualityops-test-manager-writeback-agent"
+version = "0.1.10"
+description = "Dry-run planner for preparing QualityOps QA artifacts for UiPath Test Manager sync."
+authors = [{ name = "Dhruba" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "uipath>=2.10",
+    "pydantic>=2.10",
+    "requests>=2.31,<3.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
