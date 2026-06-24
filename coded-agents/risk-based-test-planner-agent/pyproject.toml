@@ -1,0 +1,14 @@
+[project]
+name = "qualityops-risk-based-test-planner-agent"
+version = "0.1.0"
+description = "UiPath coded agent for deterministic risk-based QA test execution planning."
+authors = [{ name = "Dhruba" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "uipath>=2.0.0",
+    "pydantic>=2.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

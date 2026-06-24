@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "id": "smoke-test",
+  "name": "Smoke Test",
+  "evaluatorRefs": [],
+  "evaluations": [
+    {
+      "id": "load-review-memory",
+      "name": "Load review memory",
+      "inputs": {
+        "question": "{\"operation\":\"LOAD_REVIEW_MEMORY\",\"requirementId\":\"REQ-001\"}"
+      },
+      "evaluationCriterias": {}
+    },
+    {
+      "id": "save-review-memory",
+      "name": "Save review memory",
+      "inputs": {
+        "question": "{\"operation\":\"SAVE_REVIEW_MEMORY\",\"requirementId\":\"REQ-001\",\"scenarios\":[{\"scenarioKey\":\"SCN-001\",\"scenarioTitle\":\"Submit order\",\"reviewStatus\":\"Approved\",\"reviewComment\":\"Ready\",\"reviewedBy\":\"qa@example.com\",\"steps\":[{\"action\":\"Open order form\"}],\"source\":\"SmokeTest\"}]}"
+      },
+      "evaluationCriterias": {}
+    },
+    {
+      "id": "update-ado-result",
+      "name": "Update ADO creation result",
+      "inputs": {
+        "question": "{\"operation\":\"UPDATE_ADO_CREATION_RESULT\",\"requirementId\":\"REQ-001\",\"createdTestCases\":[{\"scenarioKey\":\"SCN-001\",\"adoTestCaseId\":\"12345\",\"adoUrl\":\"https://dev.azure.com/example/_workitems/edit/12345\"}]}"
+      },
+      "evaluationCriterias": {}
+    }
+  ]
+}

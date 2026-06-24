@@ -1,0 +1,86 @@
+{
+    "version": "2.0",
+    "resources": [
+        {
+            "resource": "asset",
+            "key": "ADO_ORGANIZATION",
+            "value": {
+                "name": {
+                    "defaultValue": "ADO_ORGANIZATION",
+                    "isExpression": false,
+                    "displayName": "Name"
+                },
+                "folderPath": {
+                    "defaultValue": "",
+                    "isExpression": false,
+                    "displayName": "Folder Path"
+                },
+                "EntryPointUniqueId": {
+                    "defaultValue": "696fd1a5-a3a5-4761-91aa-961bb58432fb",
+                    "isExpression": false,
+                    "displayName": "main"
+                }
+            },
+            "metadata": {
+                "ActivityName": "retrieve_async",
+                "BindingsVersion": "2.2",
+                "DisplayLabel": "FullName",
+                "SubType": "stringAsset"
+            }
+        },
+        {
+            "resource": "asset",
+            "key": "ADO_PROJECT",
+            "value": {
+                "name": {
+                    "defaultValue": "ADO_PROJECT",
+                    "isExpression": false,
+                    "displayName": "Name"
+                },
+                "folderPath": {
+                    "defaultValue": "",
+                    "isExpression": false,
+                    "displayName": "Folder Path"
+                },
+                "EntryPointUniqueId": {
+                    "defaultValue": "696fd1a5-a3a5-4761-91aa-961bb58432fb",
+                    "isExpression": false,
+                    "displayName": "main"
+                }
+            },
+            "metadata": {
+                "ActivityName": "retrieve_async",
+                "BindingsVersion": "2.2",
+                "DisplayLabel": "FullName",
+                "SubType": "stringAsset"
+            }
+        },
+        {
+            "resource": "asset",
+            "key": "ADO_PAT",
+            "value": {
+                "name": {
+                    "defaultValue": "ADO_PAT",
+                    "isExpression": false,
+                    "displayName": "Name"
+                },
+                "folderPath": {
+                    "defaultValue": "",
+                    "isExpression": false,
+                    "displayName": "Folder Path"
+                },
+                "EntryPointUniqueId": {
+                    "defaultValue": "696fd1a5-a3a5-4761-91aa-961bb58432fb",
+                    "isExpression": false,
+                    "displayName": "main"
+                }
+            },
+            "metadata": {
+                "ActivityName": "retrieve_async",
+                "BindingsVersion": "2.2",
+                "DisplayLabel": "FullName",
+                "SubType": "secretAsset"
+            }
+        }
+    ]
+}

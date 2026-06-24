@@ -1,0 +1,132 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+  "$id": "entry-points.json",
+  "entryPoints": [
+    {
+      "filePath": "main",
+      "uniqueId": "0e24983f-0ee6-47b8-8d4b-7b1f27adfda4",
+      "type": "function",
+      "input": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "default": "",
+            "title": "Question",
+            "type": "string"
+          }
+        },
+        "required": [],
+        "title": "Input"
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "automationLinkStatus": {
+            "title": "Automationlinkstatus",
+            "type": "string"
+          },
+          "linkedCount": {
+            "default": 0,
+            "title": "Linkedcount",
+            "type": "integer"
+          },
+          "failedCount": {
+            "default": 0,
+            "title": "Failedcount",
+            "type": "integer"
+          },
+          "packageIdentifier": {
+            "default": "QualityOpsDemoExecutionSimulator",
+            "title": "Packageidentifier",
+            "type": "string"
+          },
+          "linkedMappings": {
+            "items": {
+              "properties": {
+                "testCaseId": {
+                  "title": "Testcaseid",
+                  "type": "string"
+                },
+                "simulatorProfile": {
+                  "title": "Simulatorprofile",
+                  "type": "string"
+                },
+                "status": {
+                  "title": "Status",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "testCaseId",
+                "simulatorProfile",
+                "status"
+              ],
+              "title": "LinkedMapping",
+              "type": "object"
+            },
+            "title": "Linkedmappings",
+            "type": "array"
+          },
+          "blockedReasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Blockedreasons",
+            "type": "array"
+          },
+          "nextAction": {
+            "title": "Nextaction",
+            "type": "string"
+          },
+          "packageEntryPointFetchAttempted": {
+            "default": false,
+            "title": "Packageentrypointfetchattempted",
+            "type": "boolean"
+          },
+          "packageEntryPointFetchSucceeded": {
+            "default": false,
+            "title": "Packageentrypointfetchsucceeded",
+            "type": "boolean"
+          },
+          "updateAutomationAttempted": {
+            "default": false,
+            "title": "Updateautomationattempted",
+            "type": "boolean"
+          },
+          "tokenRefreshAttempted": {
+            "default": false,
+            "title": "Tokenrefreshattempted",
+            "type": "boolean"
+          },
+          "tokenRefreshSucceeded": {
+            "default": false,
+            "title": "Tokenrefreshsucceeded",
+            "type": "boolean"
+          },
+          "responseStatusCode": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "default": "",
+            "title": "Responsestatuscode"
+          },
+          "failedEndpointPath": {
+            "default": "",
+            "title": "Failedendpointpath",
+            "type": "string"
+          }
+        },
+        "required": [
+          "automationLinkStatus",
+          "nextAction"
+        ],
+        "title": "Output"
+      }
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "version": "1.1.0",
+  "settings": {
+    "model": "gpt-4o-2024-11-20",
+    "maxTokens": 16384,
+    "temperature": 0,
+    "engine": "basic-v2",
+    "maxIterations": 25,
+    "mode": "standard"
+  },
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "JSON string containing requirement analysis output."
+      }
+    },
+    "required": [
+      "question"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "generationStatus": {
+        "type": "string",
+        "description": "Completed for valid input; Failed when input JSON cannot be parsed."
+      },
+      "testScenarios": {
+        "type": "array",
+        "description": "Generated QA test scenarios.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "scenarioId": {
+              "type": "string"
+            },
+            "scenarioTitle": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "High",
+                "Medium",
+                "Low"
+              ]
+            },
+            "testType": {
+              "type": "string"
+            },
+            "preconditions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "expectedResult": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "scenarioId",
+            "scenarioTitle",
+            "priority",
+            "testType",
+            "preconditions",
+            "steps",
+            "expectedResult"
+          ]
+        }
+      }
+    },
+    "required": [
+      "generationStatus",
+      "testScenarios"
+    ]
+  },
+  "metadata": {
+    "storageVersion": "50.0.0",
+    "isConversational": false,
+    "showProjectCreationExperience": false,
+    "targetRuntime": "pythonAgent"
+  },
+  "type": "lowCode",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a senior QA test design agent. Generate test scenarios using the signed-off requirement, QA Lead review feedback, retrieved vector RAG context from the UiPath Index, ISO 29119 test design guidance, ISTQB testing principles, QualityOps test case standard, healthcare workflow checklist, and signed-off requirement context. Do not generate generic expected results. Every test scenario must include testCaseId, title, objective, testType, priority, risk, traceability, preconditions, testData, steps, expectedResult, coverageReason, automationCandidate, and negativeScenario where applicable. Expected results must be specific and measurable, mention exact system behavior, mention validation/warning/confirmation behavior where relevant, mention data persistence or audit behavior where relevant, and must not say \"feature behaves as expected\", \"works correctly\", \"requirement is satisfied\", or \"all acceptance criteria pass\". Return only JSON matching the output schema.",
+      "contentTokens": [
+        {
+          "type": "simpleText",
+          "rawString": "You are a senior QA test design agent. Generate test scenarios using the signed-off requirement, QA Lead review feedback, retrieved vector RAG context from the UiPath Index, ISO 29119 test design guidance, ISTQB testing principles, QualityOps test case standard, healthcare workflow checklist, and signed-off requirement context. Do not generate generic expected results. Every test scenario must include testCaseId, title, objective, testType, priority, risk, traceability, preconditions, testData, steps, expectedResult, coverageReason, automationCandidate, and negativeScenario where applicable. Expected results must be specific and measurable, mention exact system behavior, mention validation/warning/confirmation behavior where relevant, mention data persistence or audit behavior where relevant, and must not say \"feature behaves as expected\", \"works correctly\", \"requirement is satisfied\", or \"all acceptance criteria pass\". Return only JSON matching the output schema."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "{{input.question}}",
+      "contentTokens": [
+        {
+          "type": "variable",
+          "rawString": "input.question"
+        }
+      ]
+    }
+  ],
+  "projectId": "744d1237-2adf-49ba-b7cc-1632de4d2357"
+}

@@ -1,0 +1,14 @@
+[project]
+name = "qualityops-automation-link-agent"
+version = "0.1.0"
+description = "Links generated UiPath Test Manager test cases to reusable simulator automation entry points."
+authors = [{ name = "Dhruba" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "uipath>=2.10",
+    "pydantic>=2.10",
+    "requests>=2.31,<3.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -35,3 +35,9 @@ venv/
 # OS files
 .DS_Store
 Thumbs.db
+
+# UiPath coded agent local/runtime files
+uipath-agent-env/
+.uipath/
+*.pyc
+__pycache__/

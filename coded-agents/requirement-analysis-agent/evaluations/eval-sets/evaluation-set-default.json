@@ -1,0 +1,72 @@
+{
+  "id": "3cc10d48-edbf-42cc-8f50-5c8e37aaad95",
+  "name": "Default Evaluation Set",
+  "version": "1.0",
+  "evaluatorRefs": [
+    "ba4238ad-0600-4f37-8f94-5ff92d2632d6"
+  ],
+  "evaluatorConfigs": [],
+  "evaluations": [
+    {
+      "id": "bd549953-72e6-44db-97e5-ccea63a7c7e5",
+      "name": "Debug Run 03/06/2026, 11:13:33",
+      "inputs": {
+        "requirementId": "26",
+        "submittedBy": "Dhruba"
+      },
+      "expectedOutput": null,
+      "evaluationCriterias": {
+        "ba4238ad-0600-4f37-8f94-5ff92d2632d6": {
+          "expectedOutput": {
+            "processingStatus": "Requirement fetched and analyzed successfully.",
+            "requirementTitle": "Validate End-to-End Patient Care Workflow",
+            "requirementDescription": "As a healthcare application user,I want to create a patient, schedule an appointment, and create a clinical note,So that the complete patient care workflow can be validated from registration to documentation. This user story covers validation of the end-to-end healthcare workflow, including patient creation, scheduler appointment creation, and note creation. The purpose is to ensure that patient details, scheduled appointments, and clinical documentation are properly connected and working as expected. ",
+            "acceptanceCriteria": "User should be able to create a new patient with valid mandatory details.\n\nCreated patient should be searchable from the patient search screen.\n\nUser should be able to schedule an appointment for the created patient.\n\nScheduled appointment should be displayed correctly in the Scheduler.\n\nUser should be able to open the scheduled appointment.\n\nUser should be able to create a clinical note from the appointment.\n\nTherapy Session Start Time, Stop Time, and Total Time fields should be displayed correctly.\n\nUser should be able to save and close the note successfully.\n\nCreated note should be visible under the patient documentation/history section.\n\nAny functional, validation, or UI issue should be logged as a defect.  ",
+            "qaAnalysisSummary": {
+              "impactedModules": [
+                "Patient Registration",
+                "Patient Search",
+                "Scheduler",
+                "Appointments",
+                "Clinical Documentation",
+                "Patient History/Documentation"
+              ],
+              "changeType": "Enhancement",
+              "riskLevel": "High",
+              "testingScope": [
+                "Functional Testing",
+                "Integration Testing",
+                "Regression Testing",
+                "UI Testing",
+                "End-to-End Testing",
+                "UAT"
+              ],
+              "suggestedTestFocus": [
+                "Verify patient creation with all mandatory valid details",
+                "Validate field-level and form-level validations during patient registration",
+                "Confirm newly created patient is searchable from patient search screen",
+                "Verify appointment scheduling for the created patient",
+                "Confirm scheduled appointment displays correctly in the Scheduler",
+                "Validate opening the scheduled appointment from the Scheduler",
+                "Verify creation of a clinical note from the appointment workflow",
+                "Confirm Therapy Session Start Time, Stop Time, and Total Time fields display correctly",
+                "Validate save and close behavior for the clinical note",
+                "Confirm created note appears under patient documentation/history",
+                "Verify linkage and data consistency across patient, appointment, and note records",
+                "Test UI behavior and usability across the end-to-end workflow",
+                "Check for regression impact on existing patient, scheduling, and documentation flows"
+              ],
+              "humanReviewRequired": false,
+              "nextStep": "Generate test scenarios"
+            }
+          },
+          "expectedAgentBehavior": ""
+        }
+      },
+      "expectedAgentBehavior": "",
+      "mockingStrategy": null,
+      "inputMockingStrategy": null
+    }
+  ],
+  "modelSettings": []
+}

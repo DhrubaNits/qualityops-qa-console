@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: qualityops-ado-testcase-writeback-agent
+Version: 0.1.2
+Summary: UiPath coded agent that creates Azure DevOps Test Case work items from QA scenarios.
+Author: Dhruba
+Requires-Python: <3.14,>=3.11
+Requires-Dist: requests<3.0.0,>=2.31.0
+Requires-Dist: uipath<3.0,>=2.10

@@ -1,0 +1,160 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "agent",
+            "uniqueId": "42c05494-ae43-4e58-8545-c18f546a2527",
+            "type": "agent",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "default": "",
+                        "title": "Question",
+                        "type": "string"
+                    },
+                    "variationId": {
+                        "default": "",
+                        "title": "Variationid",
+                        "type": "string"
+                    },
+                    "mode": {
+                        "default": "sendFinalReportEmail",
+                        "title": "Mode",
+                        "type": "string"
+                    },
+                    "to": {
+                        "default": "",
+                        "title": "To",
+                        "type": "string"
+                    },
+                    "cc": {
+                        "default": "",
+                        "title": "Cc",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "title": "Subject",
+                        "type": "string"
+                    },
+                    "htmlReport": {
+                        "default": "",
+                        "title": "Htmlreport",
+                        "type": "string"
+                    },
+                    "plainTextReport": {
+                        "default": "",
+                        "title": "Plaintextreport",
+                        "type": "string"
+                    },
+                    "executionName": {
+                        "default": "",
+                        "title": "Executionname",
+                        "type": "string"
+                    },
+                    "adoBugLinks": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Adobuglinks",
+                        "type": "array"
+                    },
+                    "testManagerExecutionLink": {
+                        "default": "",
+                        "title": "Testmanagerexecutionlink",
+                        "type": "string"
+                    }
+                },
+                "required": []
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "title": "Status",
+                        "type": "string"
+                    },
+                    "emailStatus": {
+                        "title": "Emailstatus",
+                        "type": "string"
+                    },
+                    "to": {
+                        "default": "",
+                        "title": "To",
+                        "type": "string"
+                    },
+                    "cc": {
+                        "default": "",
+                        "title": "Cc",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "title": "Subject",
+                        "type": "string"
+                    },
+                    "sentAt": {
+                        "default": "",
+                        "title": "Sentat",
+                        "type": "string"
+                    },
+                    "nextAction": {
+                        "default": "",
+                        "title": "Nextaction",
+                        "type": "string"
+                    },
+                    "blockedReasons": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Blockedreasons",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "status",
+                    "emailStatus"
+                ]
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "__start__",
+                        "name": "__start__",
+                        "type": "__start__",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "sendFinalReportEmail",
+                        "name": "sendFinalReportEmail",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "__end__",
+                        "name": "__end__",
+                        "type": "__end__",
+                        "subgraph": null,
+                        "metadata": {}
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "__start__",
+                        "target": "sendFinalReportEmail",
+                        "label": null
+                    },
+                    {
+                        "source": "sendFinalReportEmail",
+                        "target": "__end__",
+                        "label": null
+                    }
+                ]
+            }
+        }
+    ]
+}

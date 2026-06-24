@@ -1,0 +1,254 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "696fd1a5-a3a5-4761-91aa-961bb58432fb",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "title": "Question",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "question"
+                ],
+                "title": "Input"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "writeBackStatus": {
+                        "title": "Writebackstatus",
+                        "type": "string"
+                    },
+                    "requirementId": {
+                        "default": "",
+                        "title": "Requirementid",
+                        "type": "string"
+                    },
+                    "createdTestCases": {
+                        "items": {
+                            "properties": {
+                                "scenarioId": {
+                                    "title": "Scenarioid",
+                                    "type": "string"
+                                },
+                                "testCaseId": {
+                                    "title": "Testcaseid",
+                                    "type": "integer"
+                                },
+                                "title": {
+                                    "title": "Title",
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "title": "Url",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "scenarioId",
+                                "testCaseId",
+                                "title",
+                                "url"
+                            ],
+                            "title": "CreatedTestCase",
+                            "type": "object"
+                        },
+                        "title": "Createdtestcases",
+                        "type": "array"
+                    },
+                    "failedScenarios": {
+                        "items": {
+                            "properties": {
+                                "scenarioId": {
+                                    "title": "Scenarioid",
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "title": "Error",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "scenarioId",
+                                "error"
+                            ],
+                            "title": "FailedScenario",
+                            "type": "object"
+                        },
+                        "title": "Failedscenarios",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "writeBackStatus"
+                ],
+                "title": "Output"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:350",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:179",
+                        "name": "_read_question",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:65",
+                        "name": "_failed",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:155",
+                        "name": "_resolve_ado_config",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:144",
+                        "name": "_read_asset_config",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:116",
+                        "name": "_asset_to_string",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:287",
+                        "name": "_create_test_case",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:196",
+                        "name": "_scenario_title",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:215",
+                        "name": "_work_item_url",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:188",
+                        "name": "_priority_value",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:211",
+                        "name": "_description",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:179",
+                        "target": "main.py:65"
+                    },
+                    {
+                        "source": "main.py:179",
+                        "target": "main.py:65"
+                    },
+                    {
+                        "source": "main.py:179",
+                        "target": "main.py:65"
+                    },
+                    {
+                        "source": "main.py:350",
+                        "target": "main.py:179"
+                    },
+                    {
+                        "source": "main.py:144",
+                        "target": "main.py:116"
+                    },
+                    {
+                        "source": "main.py:144",
+                        "target": "main.py:116"
+                    },
+                    {
+                        "source": "main.py:144",
+                        "target": "main.py:116"
+                    },
+                    {
+                        "source": "main.py:155",
+                        "target": "main.py:144"
+                    },
+                    {
+                        "source": "main.py:350",
+                        "target": "main.py:155"
+                    },
+                    {
+                        "source": "main.py:350",
+                        "target": "main.py:65"
+                    },
+                    {
+                        "source": "main.py:287",
+                        "target": "main.py:196"
+                    },
+                    {
+                        "source": "main.py:287",
+                        "target": "main.py:215"
+                    },
+                    {
+                        "source": "main.py:287",
+                        "target": "main.py:188"
+                    },
+                    {
+                        "source": "main.py:287",
+                        "target": "main.py:211"
+                    },
+                    {
+                        "source": "main.py:287",
+                        "target": "main.py:215"
+                    },
+                    {
+                        "source": "main.py:350",
+                        "target": "main.py:287"
+                    }
+                ]
+            }
+        }
+    ]
+}

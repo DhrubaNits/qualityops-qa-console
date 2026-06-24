@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: qualityops-test-cloud-execution-readiness-agent
+Version: 0.1.0
+Summary: Deterministic UiPath coded agent for QA execution readiness checks.
+Author: Dhruba
+Requires-Python: <3.13,>=3.12
+Requires-Dist: pydantic>=2.0
+Requires-Dist: uipath>=2.10

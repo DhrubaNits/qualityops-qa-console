@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "id": "smoke-test",
+  "name": "Smoke Test",
+  "evaluatorRefs": [
+    "LLMJudgeTrajectoryEvaluator"
+  ],
+  "evaluations": [
+    {
+      "id": "valid-high-risk-requirement",
+      "name": "Valid high-risk requirement generates scenarios",
+      "inputs": {
+        "question": "{\"requirementId\":\"REQ-1001\",\"submittedBy\":\"qa.lead@example.com\",\"environment\":\"SQA\",\"requirementTitle\":\"Customer refund approval\",\"requirementDescription\":\"Enable supervisors to approve customer refund requests.\",\"acceptanceCriteria\":\"Supervisor can approve or reject refund requests with comments.\",\"riskLevel\":\"High\",\"testingScope\":[\"Refund workflow\",\"Approval service\",\"Notification service\"],\"suggestedTestFocus\":[\"approval decision rules\",\"audit trail\"]}"
+      },
+      "evaluationCriterias": {
+        "LLMJudgeTrajectoryEvaluator": {
+          "expectedAgentBehavior": "Agent should return generationStatus Completed and 5 to 8 scenarios covering functional, negative, integration, regression, and edge-case testing."
+        }
+      }
+    },
+    {
+      "id": "invalid-json",
+      "name": "Invalid JSON handled gracefully",
+      "inputs": {
+        "question": "{invalid-json"
+      },
+      "evaluationCriterias": {
+        "LLMJudgeTrajectoryEvaluator": {
+          "expectedAgentBehavior": "Agent should not crash and should return a JSON object with generationStatus Failed and an empty testScenarios array."
+        }
+      }
+    }
+  ]
+}

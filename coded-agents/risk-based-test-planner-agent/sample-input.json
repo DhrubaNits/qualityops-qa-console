@@ -1,0 +1,3 @@
+{
+  "question": "{\"requirementId\":\"26\",\"submittedBy\":\"Dhruba\",\"environment\":\"SQA\",\"requirementTitle\":\"Validate End-to-End Patient Care Workflow\",\"riskLevel\":\"High\",\"testingScope\":[\"Functional\",\"Integration\",\"Regression\"],\"suggestedTestFocus\":[\"Patient creation\",\"Scheduler\",\"Documentation\"],\"testScenarios\":[{\"scenarioId\":\"TS-001\",\"scenarioTitle\":\"Validate end-to-end patient care workflow happy path\",\"priority\":\"High\",\"testType\":\"Functional\",\"preconditions\":[\"Requirement 26 is available for testing\"],\"steps\":[\"Open workflow\",\"Create patient\",\"Schedule appointment\"],\"expectedResult\":\"Workflow completes successfully\"}]}"
+}

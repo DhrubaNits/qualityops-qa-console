@@ -1,0 +1,290 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "a0144517-8553-4bfa-9dc6-8b4bb5721416",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "default": "",
+                        "description": "JSON string with QA readiness inputs.",
+                        "title": "Question",
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "Input"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "readinessStatus": {
+                        "title": "Readinessstatus",
+                        "type": "string"
+                    },
+                    "requirementId": {
+                        "title": "Requirementid",
+                        "type": "string"
+                    },
+                    "executionReadinessStatus": {
+                        "title": "Executionreadinessstatus",
+                        "type": "string"
+                    },
+                    "recommendedTestSet": {
+                        "title": "Recommendedtestset",
+                        "type": "string"
+                    },
+                    "executionMode": {
+                        "title": "Executionmode",
+                        "type": "string"
+                    },
+                    "testsToRunFirst": {
+                        "items": {
+                            "properties": {
+                                "rank": {
+                                    "title": "Rank",
+                                    "type": "integer"
+                                },
+                                "scenarioId": {
+                                    "title": "Scenarioid",
+                                    "type": "string"
+                                },
+                                "scenarioTitle": {
+                                    "title": "Scenariotitle",
+                                    "type": "string"
+                                },
+                                "priority": {
+                                    "title": "Priority",
+                                    "type": "string"
+                                },
+                                "testType": {
+                                    "title": "Testtype",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "rank",
+                                "scenarioId",
+                                "scenarioTitle",
+                                "priority",
+                                "testType"
+                            ],
+                            "title": "TestToRun",
+                            "type": "object"
+                        },
+                        "title": "Teststorunfirst",
+                        "type": "array"
+                    },
+                    "blockedReasons": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Blockedreasons",
+                        "type": "array"
+                    },
+                    "nextAction": {
+                        "title": "Nextaction",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "readinessStatus",
+                    "requirementId",
+                    "executionReadinessStatus",
+                    "recommendedTestSet",
+                    "executionMode",
+                    "testsToRunFirst",
+                    "blockedReasons",
+                    "nextAction"
+                ],
+                "title": "Output"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:165",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:41",
+                        "name": "_normalize",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:116",
+                        "name": "_blocked_reasons",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:34",
+                        "name": "_as_int",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:71",
+                        "name": "_select_test_set",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:45",
+                        "name": "_invalid",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:75",
+                        "name": "_select_execution_mode",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:94",
+                        "name": "_select_tests_to_run_first",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:126",
+                        "name": "_next_action",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:116",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:116",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:116",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:116",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:116"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:71",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:71"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:45"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:45"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:45"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:75"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:34"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:94",
+                        "target": "main.py:41"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:94"
+                    },
+                    {
+                        "source": "main.py:165",
+                        "target": "main.py:126"
+                    }
+                ]
+            }
+        }
+    ]
+}

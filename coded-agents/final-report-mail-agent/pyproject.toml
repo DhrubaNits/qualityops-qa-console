@@ -1,0 +1,15 @@
+[project]
+name = "qualityops-final-report-mail-agent"
+version = "0.0.5"
+description = "Send the generated QualityOps Final QA Report by email."
+authors = [{ name = "QualityOps" }]
+dependencies = [
+    "uipath>=2.10.58",
+    "uipath-langchain>=0.10.0, <0.11.0",
+]
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]

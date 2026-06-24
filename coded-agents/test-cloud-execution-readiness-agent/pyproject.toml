@@ -1,0 +1,10 @@
+[project]
+name = "qualityops-test-cloud-execution-readiness-agent"
+version = "0.1.0"
+description = "Deterministic UiPath coded agent for QA execution readiness checks."
+authors = [{ name = "Dhruba" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic>=2.0",
+    "uipath>=2.10",
+]

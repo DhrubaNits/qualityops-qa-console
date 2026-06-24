@@ -1,0 +1,26 @@
+{
+  "version": "2.0",
+  "resources": [
+    {
+      "resource": "connection",
+      "key": "qualityopsagent-gmail",
+      "value": {
+        "ConnectionId": {
+          "defaultValue": "qualityopsagent-gmail",
+          "isExpression": false,
+          "displayName": "Connection"
+        },
+        "EntryPointUniqueId": {
+          "defaultValue": "42c05494-ae43-4e58-8545-c18f546a2527",
+          "isExpression": false,
+          "displayName": "agent"
+        }
+      },
+      "metadata": {
+        "BindingsVersion": "2.2",
+        "Connector": "uipath-google-gmail",
+        "UseConnectionService": "True"
+      }
+    }
+  ]
+}

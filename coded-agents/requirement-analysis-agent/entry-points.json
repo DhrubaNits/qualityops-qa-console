@@ -1,0 +1,259 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "agent",
+            "uniqueId": "4861a4cc-91bf-44ff-99e9-d27f24b43218",
+            "type": "agent",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "requirementId": {
+                        "description": "Azure DevOps work item ID to fetch and analyze.",
+                        "title": "Requirementid",
+                        "type": "string"
+                    },
+                    "submittedBy": {
+                        "type": "string"
+                    },
+                    "environment": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "requirementId"
+                ]
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "processingStatus": {
+                        "description": "Processing outcome.",
+                        "title": "Processingstatus",
+                        "type": "string"
+                    },
+                    "requirementTitle": {
+                        "description": "Fetched Azure DevOps requirement title.",
+                        "title": "Requirementtitle",
+                        "type": "string"
+                    },
+                    "requirementDescription": {
+                        "description": "Fetched Azure DevOps requirement description.",
+                        "title": "Requirementdescription",
+                        "type": "string"
+                    },
+                    "acceptanceCriteria": {
+                        "description": "Fetched Azure DevOps acceptance criteria.",
+                        "title": "Acceptancecriteria",
+                        "type": "string"
+                    },
+                    "qaAnalysisSummary": {
+                        "additionalProperties": true,
+                        "properties": {
+                            "impactedModules": {
+                                "description": "Impacted modules inferred from the requirement.",
+                                "items": {},
+                                "title": "Impactedmodules",
+                                "type": "array"
+                            },
+                            "changeType": {
+                                "description": "New Feature, Enhancement, Bug Fix, Configuration Change, Performance Improvement, Security Update, or Unknown.",
+                                "title": "Changetype",
+                                "type": "string"
+                            },
+                            "riskLevel": {
+                                "description": "High, Medium, or Low.",
+                                "title": "Risklevel",
+                                "type": "string"
+                            },
+                            "testingScope": {
+                                "description": "Recommended testing scope.",
+                                "items": {},
+                                "title": "Testingscope",
+                                "type": "array"
+                            },
+                            "suggestedTestFocus": {
+                                "description": "Suggested test focus areas.",
+                                "items": {},
+                                "title": "Suggestedtestfocus",
+                                "type": "array"
+                            },
+                            "humanReviewRequired": {
+                                "description": "Whether QA Lead or human review is required.",
+                                "title": "Humanreviewrequired",
+                                "type": "boolean"
+                            },
+                            "nextStep": {
+                                "description": "Recommended next step.",
+                                "title": "Nextstep",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "impactedModules",
+                            "changeType",
+                            "riskLevel",
+                            "testingScope",
+                            "suggestedTestFocus",
+                            "humanReviewRequired",
+                            "nextStep"
+                        ],
+                        "title": "AgentOutputQaAnalysisSummary",
+                        "type": "object"
+                    },
+                    "requirementQualityAnalysis": {
+                        "additionalProperties": true,
+                        "properties": {
+                            "readinessStatus": {
+                                "description": "Ready, Needs Review, or Not Ready.",
+                                "title": "Readinessstatus",
+                                "type": "string"
+                            },
+                            "readinessScore": {
+                                "description": "Readiness score from 0 to 100.",
+                                "title": "Readinessscore",
+                                "type": "number"
+                            },
+                            "identifiedGaps": {
+                                "description": "Requirement gaps identified.",
+                                "items": {},
+                                "title": "Identifiedgaps",
+                                "type": "array"
+                            },
+                            "ragChecklistUsed": {
+                                "description": "QA/RAG checklist used.",
+                                "items": {},
+                                "title": "Ragchecklistused",
+                                "type": "array"
+                            },
+                            "ragEvidenceUsed": {
+                                "description": "Retrieved RAG source evidence used, with sourceName and reasonUsed.",
+                                "items": {},
+                                "title": "Ragevidenceused",
+                                "type": "array"
+                            },
+                            "qaLeadActionRequired": {
+                                "description": "Whether QA Lead action is required.",
+                                "title": "Qaleadactionrequired",
+                                "type": "boolean"
+                            },
+                            "approvalRecommendation": {
+                                "description": "Approve, Needs QA Lead Review, or Reject and request clarification.",
+                                "title": "Approvalrecommendation",
+                                "type": "string"
+                            },
+                            "qaLeadDecisionStatus": {
+                                "description": "QA Lead decision status.",
+                                "title": "Qaleaddecisionstatus",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "readinessStatus",
+                            "readinessScore",
+                            "identifiedGaps",
+                            "ragChecklistUsed",
+                            "ragEvidenceUsed",
+                            "qaLeadActionRequired",
+                            "approvalRecommendation",
+                            "qaLeadDecisionStatus"
+                        ],
+                        "title": "AgentOutputRequirementQualityAnalysis",
+                        "type": "object"
+                    },
+                    "qaLeadNotificationRequired": {
+                        "description": "Whether QA Lead notification is required.",
+                        "title": "Qaleadnotificationrequired",
+                        "type": "boolean"
+                    },
+                    "adoUpdateStatus": {
+                        "description": "ADO write-back status.",
+                        "title": "Adoupdatestatus",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "processingStatus",
+                    "requirementTitle",
+                    "requirementDescription",
+                    "acceptanceCriteria",
+                    "qaAnalysisSummary",
+                    "requirementQualityAnalysis",
+                    "qaLeadNotificationRequired",
+                    "adoUpdateStatus"
+                ]
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "__start__",
+                        "name": "__start__",
+                        "type": "__start__",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "init",
+                        "name": "init",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "terminate",
+                        "name": "terminate",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "agent",
+                        "name": "agent",
+                        "type": "model",
+                        "subgraph": null,
+                        "metadata": {
+                            "model_name": "gpt-5.4",
+                            "temperature": 0.0,
+                            "max_tokens": 128000
+                        }
+                    },
+                    {
+                        "id": "__end__",
+                        "name": "__end__",
+                        "type": "__end__",
+                        "subgraph": null,
+                        "metadata": {}
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "__start__",
+                        "target": "init",
+                        "label": null
+                    },
+                    {
+                        "source": "agent",
+                        "target": "agent",
+                        "label": null
+                    },
+                    {
+                        "source": "agent",
+                        "target": "terminate",
+                        "label": null
+                    },
+                    {
+                        "source": "init",
+                        "target": "agent",
+                        "label": null
+                    },
+                    {
+                        "source": "terminate",
+                        "target": "__end__",
+                        "label": null
+                    }
+                ]
+            }
+        }
+    ]
+}

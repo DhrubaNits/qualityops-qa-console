@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Function",
+  "Name": "qualityops-ado-testcase-writeback-agent",
+  "Description": "UiPath coded agent that creates Azure DevOps Test Case work items from QA scenarios.",
+  "MainFile": null
+}

@@ -1,0 +1,127 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "agent",
+            "uniqueId": "8bd25cf2-7653-4b30-ba9e-88306da4cec8",
+            "type": "agent",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "question": {
+                        "description": "JSON string containing the requested memory operation.",
+                        "title": "Question",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "question"
+                ]
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "title": "Status",
+                        "type": "string"
+                    },
+                    "operation": {
+                        "title": "Operation",
+                        "type": "string"
+                    },
+                    "message": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "createdCount": {
+                        "default": 0,
+                        "title": "Createdcount",
+                        "type": "integer"
+                    },
+                    "updatedCount": {
+                        "default": 0,
+                        "title": "Updatedcount",
+                        "type": "integer"
+                    },
+                    "failedCount": {
+                        "default": 0,
+                        "title": "Failedcount",
+                        "type": "integer"
+                    },
+                    "entityName": {
+                        "default": "QualityOpsTestCaseReviewMemory",
+                        "title": "Entityname",
+                        "type": "string"
+                    },
+                    "dataServicePathUsed": {
+                        "default": "",
+                        "title": "Dataservicepathused",
+                        "type": "string"
+                    },
+                    "requirementId": {
+                        "type": "string"
+                    },
+                    "records": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Records",
+                        "type": "array"
+                    },
+                    "failures": {
+                        "items": {
+                            "additionalProperties": true,
+                            "type": "object"
+                        },
+                        "title": "Failures",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "status",
+                    "operation",
+                    "message"
+                ]
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "__start__",
+                        "name": "__start__",
+                        "type": "__start__",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "process_request",
+                        "name": "process_request",
+                        "type": "node",
+                        "subgraph": null,
+                        "metadata": {}
+                    },
+                    {
+                        "id": "__end__",
+                        "name": "__end__",
+                        "type": "__end__",
+                        "subgraph": null,
+                        "metadata": {}
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "__start__",
+                        "target": "process_request",
+                        "label": null
+                    },
+                    {
+                        "source": "process_request",
+                        "target": "__end__",
+                        "label": null
+                    }
+                ]
+            }
+        }
+    ]
+}

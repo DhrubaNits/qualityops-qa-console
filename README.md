@@ -1,73 +1,263 @@
-# React + TypeScript + Vite
+# QualityOps QA Console
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+QualityOps QA Console is an agentic QA orchestration solution built for the UiPath AgentHack challenge.
 
-Currently, two official plugins are available:
+The solution uses a **UiPath Coded App built with the TypeScript SDK** as the QA lead control console. It orchestrates multiple **UiPath Coded Agents** running on UiPath Automation Cloud to support the complete QA lifecycle: requirement analysis, human review, test scenario generation, review memory, Azure DevOps test case creation, risk-based planning, UiPath Test Manager sync, automation mapping, test result triage, bug creation, final QA report generation, and email delivery.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Challenge Track
 
-## React Compiler
+**Track 3: UiPath Test Cloud**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+QualityOps aligns with the UiPath Test Cloud track because it reimagines how software testing is designed, governed, executed, and reported using agentic workflows on UiPath Automation Cloud.
 
-## Expanding the ESLint configuration
+## Business Problem
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+QA teams spend significant manual effort reading requirements, identifying test scenarios, reviewing coverage, creating test cases, deciding what to execute first, triaging failures, creating bugs, and preparing release reports.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This process is often slow, inconsistent, and difficult to govern at scale.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+QualityOps solves this by providing an agentic QA operating console where AI agents assist across the testing lifecycle, while the QA lead remains in control through review and approval gates.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Solution Overview
+
+QualityOps supports the following end-to-end flow:
+
+1. Requirement Analysis
+2. Human Review and Approval
+3. Test Scenario Generation
+4. QA Review Memory using UiPath Data Service
+5. Approved Test Case Creation in Azure DevOps
+6. Risk-Based Execution Planning
+7. UiPath Test Manager Sync
+8. Automation Mapping
+9. Test Execution Result Triage
+10. Azure DevOps Bug Creation
+11. Final QA Report Generation
+12. QA Report Email Delivery
+
+## UiPath Platform Components Used
+
+* UiPath Coded App using TypeScript SDK
+* UiPath Coded Agents
+* UiPath Automation Cloud
+* UiPath Orchestrator Jobs
+* UiPath Test Manager / UiPath Test Cloud
+* UiPath Data Service
+* UiPath Studio Web
+* UiPath automation package mapping
+
+## External Systems and Tools Used
+
+* Azure DevOps
+* TypeScript
+* React
+* Vite
+* Codex / coding agents for development assistance
+
+## Architecture
+
+```text
+QA Lead
+  ↓
+UiPath Coded App - QualityOps QA Console
+  ↓
+UiPath Orchestrator Jobs
+  ↓
+UiPath Coded Agents
+  ↓
+UiPath Data Service / Azure DevOps / UiPath Test Manager
+  ↓
+Final QA Report and Email
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Repository Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+qualityops-qa-console/
+│
+├── src/
+│   ├── App.tsx
+│   ├── App.css
+│   ├── index.css
+│   └── services/
+│       └── orchestratorService.ts
+│
+├── coded-agents/
+│   ├── requirement-analysis-agent/
+│   ├── ado-writeback-agent/
+│   ├── test-scenario-generation-agent/
+│   ├── test-case-review-memory-agent/
+│   ├── ado-testcase-writeback-agent/
+│   ├── risk-based-test-planner-agent/
+│   ├── test-manager-writeback-agent/
+│   ├── automation-link-agent/
+│   ├── test-result-triage-agent/
+│   ├── ado-bug-creation-agent/
+│   ├── final-qa-report-agent/
+│   └── final-report-mail-agent/
+│
+├── docs/
+│   ├── screenshots/
+│   └── diagrams/
+│
+├── submission/
+├── .env.example
+├── README.md
+├── LICENSE
+├── package.json
+└── vite.config.ts
 ```
+
+## Key Agents
+
+### Requirement Analysis Agent
+
+Analyzes Azure DevOps requirements and identifies impacted modules, change type, risk level, testing scope, and suggested test focus areas.
+
+### Requirement Review / Human Approval
+
+Allows the QA lead to review and approve the requirement analysis before continuing the workflow.
+
+### Test Scenario Generation Agent
+
+Generates meaningful functional, regression, integration, negative, and edge-case test scenarios from the approved requirement analysis.
+
+### Test Case Review Memory Agent
+
+Stores QA approval and rejection decisions in UiPath Data Service so review history can be reused and audited.
+
+### Azure DevOps Test Case WriteBack Agent
+
+Creates only approved test cases in Azure DevOps.
+
+### Risk-Based Test Planner Agent
+
+Ranks generated test scenarios based on risk, priority, test type, and coverage needs.
+
+### Test Manager WriteBack Agent
+
+Syncs generated test cases into UiPath Test Manager / UiPath Test Cloud.
+
+### Automation Link Agent
+
+Maps UiPath automated test packages to UiPath Test Manager test cases.
+
+### Test Result Triage Agent
+
+Analyzes execution results and identifies failures requiring action.
+
+### Azure DevOps Bug Creation Agent
+
+Creates Azure DevOps bugs for failed or high-risk test execution outcomes.
+
+### Final QA Report Agent
+
+Generates a consolidated QA readiness report.
+
+### Final Report Mail Agent
+
+Sends the final QA report by email.
+
+## Human-in-the-Loop Governance
+
+QualityOps keeps the QA lead in control at important decision points:
+
+* Requirement review before test generation
+* Approval or rejection of generated test scenarios
+* Only approved test cases are created in Azure DevOps
+* Review decisions are stored in UiPath Data Service
+* Release readiness is calculated based on workflow completion
+* Final report is generated after execution and triage
+
+## Setup Instructions
+
+### Prerequisites
+
+* UiPath Automation Cloud access
+* UiPath Studio Web access
+* UiPath Test Manager project
+* UiPath Data Service entity configured
+* Azure DevOps project access
+* Node.js installed
+* UiPath CLI installed
+* Access to required UiPath folders and processes
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment
+
+Create a `.env` file using `.env.example` as a template.
+
+Do not commit real environment values, tokens, client secrets, or private tenant details.
+
+```bash
+copy .env.example .env
+```
+
+Update the `.env` file with your own UiPath tenant, folder, process, and Test Manager values.
+
+### Run Locally
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+### Push UiPath Coded App
+
+```bash
+uip codedapp push
+```
+
+After pushing, open UiPath Studio Web and publish the Coded App from UiPath Automation Cloud.
+
+## Demo Flow
+
+The demo shows:
+
+1. Opening the QualityOps QA Console as a UiPath Coded App
+2. Running requirement analysis
+3. Reviewing and approving the requirement
+4. Generating test scenarios
+5. Approving selected test scenarios
+6. Creating approved test cases in Azure DevOps
+7. Generating a risk-based execution plan
+8. Syncing test cases to UiPath Test Manager
+9. Mapping automation
+10. Reviewing execution results
+11. Creating Azure DevOps bugs
+12. Generating and sending the final QA report
+
+## Coding Agents Usage
+
+Coding agents were used during development to accelerate implementation, debugging, and refinement of the solution.
+
+Codex was used to help build and stabilize the UiPath Coded App, TypeScript SDK integration, dashboard workflow navigation, agent payload handling, and end-to-end orchestration logic.
+
+This supports the UiPath AgentHack bonus criteria for using coding agents through UiPath for Coding Agents.
+
+## Production Potential
+
+QualityOps can be extended for enterprise QA teams by adding:
+
+* Role-based access control
+* Multi-project support
+* Advanced risk scoring
+* Test coverage analytics
+* CI/CD pipeline triggers
+* Release gate integrations
+* More detailed audit history
+* Maestro BPMN or Maestro Case as a future enterprise orchestration layer
+
+## License
+
+This project is licensed under the MIT License.

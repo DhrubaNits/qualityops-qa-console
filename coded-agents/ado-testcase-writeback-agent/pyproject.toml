@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qualityops-ado-testcase-writeback-agent"
+version = "0.1.5"
+description = "UiPath coded agent that creates Azure DevOps Test Case work items from QA scenarios."
+authors = [{ name = "Dhruba" }]
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "requests>=2.31.0,<3.0.0",
+    "uipath>=2.10,<3.0",
+]
+
+[tool.setuptools]
+py-modules = ["main"]

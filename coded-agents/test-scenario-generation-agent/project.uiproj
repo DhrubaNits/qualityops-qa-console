@@ -1,0 +1,6 @@
+{
+  "ProjectType": "Agent",
+  "Name": "qualityops-test-scenario-generation-agent",
+  "Description": "QualityOps Test Scenario Generation Agent",
+  "MainFile": null
+}
