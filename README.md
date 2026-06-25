@@ -1,8 +1,12 @@
 # QualityOps QA Console
 
-QualityOps QA Console is an agentic QA orchestration solution built for the UiPath AgentHack challenge.
+QualityOps QA Console is an agentic QA orchestration solution built for the UiPath AgentHack challenge under the **Agentic Testing with Test Cloud** track.
 
-The solution uses a **UiPath Coded App built with the TypeScript SDK** as the QA lead control console. It orchestrates multiple **UiPath Coded Agents** running on UiPath Automation Cloud to support the complete QA lifecycle: requirement analysis, human review, test scenario generation, review memory, Azure DevOps test case creation, risk-based planning, UiPath Test Manager sync, automation mapping, test result triage, bug creation, final QA report generation, and email delivery.
+The solution uses a **UiPath Coded App built with the TypeScript SDK** as the QA lead control console. It orchestrates multiple **UiPath Coded Agents** running through **UiPath Automation Cloud and UiPath Orchestrator Jobs** to support the complete QA lifecycle.
+
+QualityOps helps QA teams move from requirement to release readiness through requirement analysis, human review, test scenario generation, review memory, Azure DevOps test case creation, risk-based planning, UiPath Test Manager / Test Cloud sync, automation mapping, test result analysis, failure triage, bug creation, final QA report generation, and email delivery.
+
+UiPath Automation Cloud is used as the main **orchestration and governance layer**. External frameworks, LLM reasoning, Azure DevOps APIs, React, TypeScript, Python, and coding-agent-assisted development are used around the UiPath Platform to build a realistic enterprise QA workflow.
 
 ## Challenge Track
 
@@ -42,17 +46,25 @@ QualityOps supports the following end-to-end flow:
 * UiPath Automation Cloud
 * UiPath Orchestrator Jobs
 * UiPath Test Manager / UiPath Test Cloud
-* UiPath Data Service
+* UiPath Data Fabric
 * UiPath Studio Web
 * UiPath automation package mapping
+* UiPath Swagger
 
 ## External Systems and Tools Used
 
-* Azure DevOps
+* Azure DevOps REST APIs
+* Azure DevOps Test Plans
 * TypeScript
 * React
 * Vite
-* Codex / coding agents for development assistance
+* Python
+* LangGraph
+* LLM reasoning
+* Rule-based risk scoring
+* UiPath for Coding Agents
+* Codex / coding-agent-assisted development
+* GitHub
 
 ## Architecture
 
@@ -61,14 +73,15 @@ QA Lead
   ↓
 UiPath Coded App - QualityOps QA Console
   ↓
-UiPath Orchestrator Jobs
+UiPath Automation Cloud / UiPath Orchestrator Jobs
   ↓
 UiPath Coded Agents
   ↓
-UiPath Data Service / Azure DevOps / UiPath Test Manager
+Azure DevOps / UiPath Test Manager / UiPath Test Cloud / UiPath Data Service
   ↓
-Final QA Report and Email
-```
+Test Result Analysis / Failure Triage / Bug Creation
+  ↓
+Final QA Report and Email Communication
 
 ## Repository Structure
 
@@ -239,11 +252,34 @@ The demo shows:
 
 ## Coding Agents Usage
 
-Coding agents were used during development to accelerate implementation, debugging, and refinement of the solution.
+This project demonstrates coding-agent-assisted development using **Codex** and **UiPath for Coding Agents** practices during implementation.
 
-Codex was used to help build and stabilize the UiPath Coded App, TypeScript SDK integration, dashboard workflow navigation, agent payload handling, and end-to-end orchestration logic.
+Codex was used to help build, debug, and refine:
 
-This supports the UiPath AgentHack bonus criteria for using coding agents through UiPath for Coding Agents.
+* React and TypeScript implementation for the UiPath Coded App
+* UiPath TypeScript SDK integration
+* Dashboard workflow navigation
+* Agent payload mapping and response handling
+* Orchestrator job integration logic
+* Coded App deployment troubleshooting
+* README, documentation, and submission preparation
+
+The final solution itself is orchestrated and governed through the UiPath Platform, while Codex was used as a development accelerator. This supports the UiPath AgentHack bonus criteria for demonstrating the use of coding agents during solution development.
+
+
+## Hackathon Submission Compliance
+
+* **Track:** Agentic Testing with Test Cloud
+* **Built during hackathon period:** Yes
+* **Runs on UiPath Automation Cloud:** Yes
+* **UiPath used as orchestration layer:** Yes
+* **Coded App used:** Yes
+* **Coded Agents used:** Yes
+* **Orchestrator Jobs used:** Yes
+* **UiPath Test Manager / Test Cloud used:** Yes
+* **UiPath Data Fabric used:** Yes
+* **Public GitHub repository:** Yes
+* **Coding Agents bonus:** Codex / UiPath for Coding Agents used during development
 
 ## Production Potential
 
