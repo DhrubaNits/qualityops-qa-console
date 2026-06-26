@@ -48,8 +48,8 @@ QualityOps supports the following end-to-end flow:
 * UiPath Test Manager / UiPath Test Cloud
 * UiPath Data Fabric
 * UiPath Studio Web
-* UiPath automation package mapping
-* UiPath Swagger
+* UiPath Integration Service
+* UiPath Test Manager APIs
 
 ## External Systems and Tools Used
 
@@ -83,6 +83,8 @@ Test Result Analysis / Failure Triage / Bug Creation
   ↓
 Final QA Report and Email Communication
 
+```
+
 ## Repository Structure
 
 ```text
@@ -105,8 +107,6 @@ qualityops-qa-console/
 │   ├── test-manager-writeback-agent/
 │   ├── automation-link-agent/
 │   ├── test-result-triage-agent/
-│   ├── ado-bug-creation-agent/
-│   ├── final-qa-report-agent/
 │   └── final-report-mail-agent/
 │
 ├── docs/
