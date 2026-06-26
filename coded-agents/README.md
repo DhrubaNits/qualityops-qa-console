@@ -28,10 +28,6 @@ This folder contains the UiPath Coded Agents used by the QualityOps QA Console.
 
 \- Test Result Triage Agent
 
-\- ADO Bug Creation Agent
-
-\- Final QA Report Agent
-
 \- Final Report Mail Agent
 
 
