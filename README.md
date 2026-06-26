@@ -159,10 +159,6 @@ Maps UiPath automated test packages to UiPath Test Manager test cases.
 
 Analyzes execution results and identifies failures requiring action.
 
-### Azure DevOps Bug Creation Agent
-
-Creates Azure DevOps bugs for failed or high-risk test execution outcomes.
-
 ### Final QA Report Agent
 
 Generates a consolidated QA readiness report.
